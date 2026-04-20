@@ -1,0 +1,2 @@
+# Global Patent Intelligence Data Pipeline
+In this project, you will build a simple data system that collects, cleans, stores, and analyzes real-world patent data as part of a class assignment. Patents are official records of inventions. Companies and governments use them to understand: • New technologies • Top inventors • Leading companies • Innovation trends across countries You will act like a data engineer and build a small version of this system.
