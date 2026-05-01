@@ -1,0 +1,420 @@
+g_cpc_current has: Current CPC classification of the patent
+CPC = Cooperative Patent Classification
+It’s a system used to categorize patents by technology or field.
+In patent classification, green tech is mostly captured using:
+👉 CPC Section: Y
+Y02 → Climate change mitigation technologies
+
+Think of it like:
+A library classification system (like Dewey Decimal)
+But for inventions instead of books
+
+Subcategories of Y02 
+| Code | Meaning                               |
+| ---- | ------------------------------------- |
+| Y02E | Energy generation (solar, wind)       |
+| Y02T | Transport (electric vehicles)         |
+| Y02B | Buildings (energy efficiency)         |
+| Y02P | Industry (low-emission manufacturing) |
+| Y02C | Carbon capture                        |
+| Y02W | Waste management                      |
+
+The full Y02 universe answers the complete question: 
+how is technology responding to climate change across every sector of the economy.
+
+Y02 is architecturally designed to always be additional — never inventional. This is not an accident or an error. It is deliberate USPTO policy.
+The reasoning is this: 
+nobody invents something and says "I am inventing green technology." 
+They invent a specific thing — a better sintering process, a new wind turbine blade mount, a more efficient battery chemistry. 
+The Y02 tag is then applied by the examiner as a cross-cutting label that says "this invention has climate relevance."
+
+A Y02T-focused study tells a clear, compelling story: how is technology transforming the way humanity moves?
+
+
+
+
+
+g_patent -> tells you the patent itself (the main record).
+g_patent = "Master list of patents"
+Every other table (CPC, inventors, companies) connects back to this one
+g_patent (main info)
+   ↓
+g_cpc_current (category → Y02 filter)
+   ↓
+g_inventor / g_assignee (who made it)
+
+patent type= utility → functional inventions (MOST IMPORTANT)
+Types:
+utility → functional inventions 
+design → appearance
+reissue → corrections
+✔️ Why utility?
+Green tech = functional systems (solar, EVs, etc.)
+Not design patents
+
+Why g_patent is ESSENTIAL
+Without it:
+❌ You only know categories (Y02)
+With it:
+✅ You get:
+Titles (for reports)
+Dates (for trends)
+Valid patents (filter withdrawn)
+
+
+
+
+
+What is g_patent_abstract?
+👉 This table contains the detailed description (summary) of each patent
+| Table               | What it gives                 |
+| ------------------- | ----------------------------- |
+| `g_patent`          | Title + date (basic info)     |
+| `g_patent_abstract` | Full explanation of invention |
+Even though CPC already identifies green tech:
+
+👉 Abstracts help to:
+Understand what kind of green tech
+Show examples in the report
+
+
+
+
+What is g_inventor_disambiguated?
+
+👉 This table gives you clean, unique inventor identities
+
+
+g_patent (what)
+   ↓
+g_cpc_current (green filter Y02)
+   ↓
+g_inventor_disambiguated (who)
+   ↓
+location table (where)
+
+
+
+What is g_assignee_disambiguated?
+It is a cleaned and standardized table of patent owners (companies/organizations/individuals).
+First: What is an assignee?
+
+In patents:
+Assignee = the owner of the patent
+This could be:
+A company (e.g., IBM, Google)
+A university
+An individual inventor
+
+⚠️ The problem (why “disambiguated” exists)
+Raw data might look like this:
+"IBM Corp"
+"International Business Machines"
+"I.B.M."
+❌ These are the same company, but written differently.
+
+✅ What “disambiguated” means
+The dataset cleans and merges duplicates
+So all of those become:
+✅ IBM (one unique ID)
+
+
+═══════════════════════════════════════════════════════════════════════════════
+PROJECT DEEP DIVE: Green Transport Patent Intelligence Pipeline
+═══════════════════════════════════════════════════════════════════════════════
+
+OVERVIEW
+--------
+This project ingests USPTO patent data (141,124 green transport patents from 1976–2025),
+cleans and standardizes it, loads it into SQLite, analyzes it for insights, and visualizes
+it through an interactive Streamlit dashboard. The focus is on CPC Y02T (climate change
+mitigation in transportation).
+
+═══════════════════════════════════════════════════════════════════════════════
+PIPELINE ARCHITECTURE & CODE EXPLANATIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+1. RAW DATA INGESTION (data/raw/*.tsv)
+   ────────────────────────────────────
+   Input Files:
+   • g_patent.tsv - Base patent records (ID, title, date, type)
+   • g_cpc_current.tsv - Patent classifications (links patents to Y02T category)
+   • g_patent_abstract.tsv - Detailed summaries of what each patent does
+   • g_inventor_disambiguated.tsv - Cleaned inventor identities + locations
+   • g_assignee_disambiguated.tsv - Cleaned company/owner identities + locations
+   • g_location_disambiguated.tsv - Standardized geographic locations
+
+   Purpose:
+   These 6 TSV files form a relational network. Each table connects to others
+   via patent_id, inventor_id, or assignee_id. Raw data contains duplicates,
+   inconsistencies, and non-UTF8 characters.
+
+2. CLEANING STAGE (scripts/02_clean.py)
+   ────────────────────────────────────
+   
+   Code Flow:
+   a) Load all TSV files into pandas DataFrames
+      df_patent = pd.read_csv('data/raw/g_patent.tsv', sep='\t', on_bad_lines='skip')
+      └─ Explanation: on_bad_lines='skip' handles corrupted rows gracefully
+      
+   b) Filter to Y02T (green transport) patents only
+      y02t_patents = df_cpc[df_cpc['cpc_section'] == 'Y02T']['patent_id']
+      └─ Relevance: Isolates only climate-relevant transport tech from 10M+ patents
+      
+   c) Standardize text encoding & remove nulls
+      df_patent['title'] = df_patent['title'].fillna('').str.replace(r'[^\x00-\x7F]', '', regex=True)
+      └─ Relevance: Ensures database compatibility & consistent searching
+      
+   d) Validate dates are within reasonable range (1976–2025)
+      df_patent = df_patent[(df_patent['year'] >= 1976) & (df_patent['year'] <= 2025)]
+      └─ Relevance: Removes data entry errors (patents from year 0 or 3000)
+      
+   e) Remove duplicates by patent_id
+      df_patent = df_patent.drop_duplicates(subset=['patent_id'])
+      └─ Relevance: Same patent shouldn't appear twice in analysis
+      
+   f) Output cleaned data to data/clean/*.tsv
+      df_patent.to_csv('data/clean/patent_clean.tsv', sep='\t', index=False)
+      └─ Relevance: Creates audit trail; raw data untouched
+
+3. DATA QUALITY CHECK (scripts/02b_data_quality.py)
+   ────────────────────────────────────────────────
+   
+   Validations performed:
+   a) Check for null values in critical columns
+      if df_patent['patent_id'].isnull().sum() > 0:
+          raise ValueError("Found nulls in patent_id")
+      └─ Relevance: NULL IDs would break database relationships
+      
+   b) Verify referential integrity
+      invalid_patents = inventors['patent_id'].isin(patent['patent_id']).sum() == 0
+      └─ Relevance: Every inventor record must link to a valid patent
+      
+   c) Check for data type mismatches
+      if not pd.api.types.is_numeric_dtype(df['year']):
+          df['year'] = pd.to_numeric(df['year'], errors='coerce')
+      └─ Relevance: Year must be int for sorting/filtering
+      
+   d) Validate geographic locations (country codes)
+      valid_countries = ['US', 'JP', 'DE', 'FR', ...]
+      df_inventor = df_inventor[df_inventor['country'].isin(valid_countries)]
+      └─ Relevance: Invalid country codes indicate data corruption
+      
+   e) Generate quality report
+      print(f"Total patents: {len(df_patent)}")
+      print(f"Date range: {df_patent['year'].min()} – {df_patent['year'].max()}")
+      └─ Relevance: Confirms pipeline correctness before database load
+
+4. DATABASE LOAD (scripts/03_load_db.py)
+   ───────────────────────────────────────
+   
+   Code Flow:
+   a) Create SQLite schema from sql/schema.sql
+      with sqlite3.connect('patents.db') as conn:
+          conn.executescript(open('sql/schema.sql').read())
+      └─ Relevance: Defines tables, indexes, and relationships upfront
+      
+   b) Create database constraints
+      CREATE TABLE patents (
+          patent_id TEXT PRIMARY KEY,
+          title TEXT NOT NULL,
+          year INT CHECK (year >= 1976 AND year <= 2025),
+          FOREIGN KEY (cpc_id) REFERENCES cpc(cpc_id)
+      );
+      └─ Relevance: Ensures data integrity at database layer
+      
+   c) Batch insert cleaned data
+      for chunk in pd.read_csv('data/clean/patent_clean.tsv', chunksize=5000, sep='\t'):
+          chunk.to_sql('patents', conn, if_exists='append', index=False)
+      └─ Relevance: Chunking prevents memory overflow on large datasets
+      
+   d) Create indexes for fast querying
+      CREATE INDEX idx_patent_year ON patents(year);
+      CREATE INDEX idx_inventor_country ON inventors(country);
+      └─ Relevance: Dashboard queries run in <1 second with indexes
+
+5. ANALYSIS STAGE (scripts/04_analyze.py)
+   ──────────────────────────────────────
+   
+   SQL Queries Used:
+   
+   a) Patent growth over time
+      SELECT year, COUNT(*) as patents FROM patents
+      WHERE year >= 1976 GROUP BY year ORDER BY year;
+      └─ Relevance: Identifies inflection points in green tech adoption
+      
+   b) Top inventors by patent count
+      SELECT i.name, COUNT(DISTINCT r.patent_id) as patent_count
+      FROM inventors i JOIN relations r ON i.inventor_id = r.inventor_id
+      GROUP BY i.inventor_id ORDER BY patent_count DESC LIMIT 20;
+      └─ Relevance: Identifies prolific innovators in green transport
+      
+   c) Technology distribution by country
+      SELECT l.country, COUNT(DISTINCT r.patent_id) as patents
+      FROM locations l JOIN inventors i ON l.location_id = i.location_id
+      JOIN relations r ON i.inventor_id = r.inventor_id
+      GROUP BY l.country ORDER BY patents DESC;
+      └─ Relevance: Shows which countries lead in green transport R&D
+      
+   d) Company portfolio analysis
+      SELECT c.name, COUNT(DISTINCT r.patent_id) as patents,
+             MIN(p.year) as first_patent, MAX(p.year) as latest_patent
+      FROM companies c JOIN relations r ON c.company_id = r.company_id
+      JOIN patents p ON r.patent_id = p.patent_id
+      GROUP BY c.company_id ORDER BY patents DESC;
+      └─ Relevance: Identifies market leaders and entry points
+
+6. VISUALIZATION & REPORTING (dashboard/app.py & scripts/05_report.py)
+   ──────────────────────────────────────────────────────────────────
+   
+   Dashboard Features:
+   
+   a) Page: Overview
+      ├─ KPI Cards: Total patents (141K), Inventors (X), Companies (Y), Peak year
+      ├─ Charts:
+      │  ├─ Patent Growth Area Chart
+      │  │  fig = px.area(trend, x="year", y="patents",
+      │  │                 color_discrete_sequence=["#10b981"])
+      │  │  └─ Relevance: Shows acceleration of green tech development
+      │  │
+      │  └─ Top 10 Countries Bar Chart
+      │     └─ Relevance: Geographic distribution of innovation
+      │
+      └─ Technology Pie Chart (Y02T subcategories)
+         └─ Relevance: Shows where investments are concentrated
+   
+   b) Page: Trends Over Time
+      ├─ Year Range Slider (interactive filter)
+      ├─ Annual Patent Filings Bar Chart
+      └─ Cumulative Patents Line Chart
+      └─ Relevance: Users can explore specific time periods
+   
+   c) Page: Top Inventors
+      ├─ Dynamic slider: number of inventors to display
+      ├─ Country filter: multiselect dropdown
+      │  if country_filter:
+      │      WHERE inventor.country IN (selected_countries)
+      │  └─ Relevance: Users can focus on inventors from specific regions
+      │
+      └─ Visualizations:
+         ├─ Horizontal bar chart colored by country
+         ├─ Pie chart of country distribution
+         └─ Interactive ranking table
+      └─ Relevance: Reveals innovation leaders globally
+   
+   d) Page: Top Companies
+      ├─ Similar structure to Top Inventors
+      ├─ CTE (Common Table Expression) query:
+      │  WITH counts AS (SELECT name, COUNT(*) as patents FROM companies...),
+      │       avg_c AS (SELECT AVG(patents) as avg FROM counts)
+      │  SELECT name, patents, patents/avg as multiple
+      │  └─ Relevance: Shows which companies significantly outperform average
+      │
+      └─ Visualizations show market concentration
+   
+   e) Page: Country Analysis
+      ├─ Left column: Patents by INVENTOR location
+      │  └─ Shows where research happens
+      │
+      ├─ Right column: Patents by COMPANY location
+      │  └─ Shows where IP is owned
+      │
+      └─ Comparison: Technology transfer patterns revealed
+         └─ Relevance: If left > right, brain drain from that country
+   
+   f) Page: Patent Explorer
+      ├─ Search box: full-text search on titles
+      │  WHERE LOWER(p.title) LIKE LOWER('%search_term%')
+      │  └─ Relevance: Users find patents on specific topics
+      │
+      ├─ Year range filter
+      └─ Results table with clickable patent IDs
+         └─ Relevance: Drill-down capability for detailed investigation
+
+═══════════════════════════════════════════════════════════════════════════════
+STYLING & UX IMPROVEMENTS (Modern Dashboard Redesign)
+═══════════════════════════════════════════════════════════════════════════════
+
+CSS Customizations (dashboard/app.py, lines ~20-45):
+• Primary color: #10b981 (emerald green - represents sustainability)
+• Background: #f9fafb (light gray - reduces eye strain)
+• Removed excessive emojis: replaced "📊 Overview" with clean "Overview"
+• Added gridlines to charts: gridcolor="rgba(229,231,235,0.5)"
+  └─ Relevance: Improves readability without visual clutter
+
+Plotly Chart Styling:
+• All charts use: plot_bgcolor="rgba(249,250,251,1)", paper_bgcolor="white"
+  └─ Relevance: Consistent, professional appearance across all pages
+• Color scales: Green-based sequential scale (px.colors.sequential.Greens)
+  └─ Relevance: Thematic connection to environmental/climate focus
+
+═══════════════════════════════════════════════════════════════════════════════
+KEY METRICS & INSIGHTS CAPTURED
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Patent Velocity: Growth rate from 1976 → 2025
+   └─ Shows if green transport innovation is accelerating or plateauing
+
+2. Geographic Hotspots: Which countries innovate most
+   └─ Policy implications: Where should partnerships focus?
+
+3. Technology Distribution: Y02T10 (road) vs Y02T50 (aviation) vs Y02T70 (maritime)
+   └─ Market investment patterns
+
+4. Inventor Mobility: Do inventors move between countries?
+   └─ Brain drain vs talent attraction analysis
+
+5. Company Market Share: Are markets concentrated or diverse?
+   └─ Competitive landscape assessment
+
+6. Time-to-Production: Are patents filed years before company adoption?
+   └─ Innovation lag measurement
+
+═══════════════════════════════════════════════════════════════════════════════
+TECHNOLOGY STACK
+═══════════════════════════════════════════════════════════════════════════════
+
+Backend:
+• Python 3.14: Data processing, analysis
+• Pandas: Data manipulation (groupby, merge, filter)
+• SQLite: Relational database (lightweight, portable)
+• SQL: Complex queries with CTEs, JOINs, window functions
+
+Frontend:
+• Streamlit: Interactive web dashboard (runs Python directly)
+• Plotly: Interactive visualizations (hover, zoom, export)
+
+Version Control:
+• Git: Track changes, collaborate
+• GitHub: Remote repository
+
+═══════════════════════════════════════════════════════════════════════════════
+RUNNING THE PIPELINE
+═══════════════════════════════════════════════════════════════════════════════
+
+Full pipeline (end-to-end):
+$ python3 scripts/run_pipeline.py
+  └─ Executes: 02_clean → 02b_data_quality → 03_load_db → 04_analyze → 05_report
+
+Individual steps:
+$ python3 scripts/02_clean.py          # Data cleaning
+$ python3 scripts/02b_data_quality.py  # Validation
+$ python3 scripts/03_load_db.py        # Database load
+$ python3 scripts/04_analyze.py        # Analysis queries
+$ python3 scripts/05_report.py         # Generate reports
+
+Dashboard:
+$ streamlit run dashboard/app.py        # Launch interactive dashboard (localhost:8501)
+
+═══════════════════════════════════════════════════════════════════════════════
+DEPENDENCIES (requirements.txt)
+═══════════════════════════════════════════════════════════════════════════════
+
+pandas>=1.3.0          # Data manipulation
+numpy>=1.21.0          # Numerical computation
+streamlit>=1.0.0       # Dashboard framework
+plotly>=5.0.0          # Interactive visualizations
+
+These are intentionally minimal to reduce environment bloat and ensure reproducibility.
+
+═══════════════════════════════════════════════════════════════════════════════

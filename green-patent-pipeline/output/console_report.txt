@@ -1,0 +1,121 @@
+==============================================================
+   GREEN TRANSPORT PATENT INTELLIGENCE REPORT
+   Focus: CPC Y02T — Climate Change Mitigation in Transport
+   Generated: 2026-05-01 12:06:36
+==============================================================
+
+── DATASET OVERVIEW ──────────────────────────────────────
+  Total active green transport patents :    141,124
+  Date range                           : 1976 — 2025
+  Unique inventors                     :    138,160
+  Unique companies / assignees         :     12,201
+  Patents with no assignee             :      8,196
+  Peak filing year                     : 2019 (9,085 patents)
+  Growth 2010 → 2020                   :     198.2%
+
+── Y02T SUBCATEGORY COVERAGE ─────────────────────────────
+  Y02T10  Road vehicles (EVs, hybrids, fuel cells) : 106,474
+  Y02T50  Aviation propulsion & materials           :  29,042
+  Y02T90  Charging & hydrogen infrastructure        :  20,770
+  Y02T70  Maritime green shipping                   :   1,775
+  Y02T30  Aviation fuel efficiency                  :   1,154
+  Note: patents may appear in multiple subcategories
+
+── TOP 10 INVENTORS ──────────────────────────────────────
+  Rank  Name                                Country  Patents
+  ---- ---------------------------------- ------- -------
+  1     Gopichandra Surnilla                US           355
+  2     Atsushi Tabata                      JP           315
+  3     Ross Dykstra Pursifull              US           300
+  4     Shinji Ichikawa                     JP           218
+  5     Joseph Norman Ulrey                 US           211
+  6     Thomas G. Leone                     US           209
+  7     Gabriel L. Suciu                    US           207
+  8     Jeffrey Allen Doering               US           207
+  9     Anthony H. Heap                     US           198
+  10    Frederick M. Schwarz                US           190
+
+── TOP 10 COMPANIES ──────────────────────────────────────
+  Rank  Company                                Ctry   Patents
+  ---- ------------------------------------- ----- -------
+  1     TOYOTA JIDOSHA KABUSHIKI KAISHA        JP       9,958
+  2     FORD GLOBAL TECHNOLOGIES, LLC          US       6,748
+  3     General Electric Company               US       4,740
+  4     HONDA MOTOR CO., LTD.                  JP       4,030
+  5     GM GLOBAL TECHNOLOGY OPERATIONS LLC    US       3,750
+  6     Hyundai Motor Company                  KR       3,729
+  7     Nissan Motor Co., Ltd.                 JP       2,673
+  8     Robert Bosch GmbH                      DE       2,636
+  9     UNITED TECHNOLOGIES CORPORATION        US       2,609
+  10    The Boeing Company                     US       2,453
+
+── TOP 10 COUNTRIES — BY INVENTOR LOCATION ──────────────
+  (Where the research and invention happens)
+  Rank  Country     Patents    Share
+  ---- --------- -------- --------
+  1     US           61,031   40.83%
+  2     JP           37,715   25.23%
+  3     DE           15,940   10.66%
+  4     KR            6,641    4.44%
+  5     FR            6,051    4.05%
+  6     GB            4,322    2.89%
+  7     CN            3,008    2.01%
+  8     CA            2,890    1.93%
+  9     SE            1,699    1.14%
+  10    IT            1,510    1.01%
+
+── TOP 10 COUNTRIES — BY COMPANY LOCATION ───────────────
+  (Where the intellectual property is owned)
+  Rank  Country     Patents    Share
+  ---- --------- -------- --------
+  1     US           54,859   41.32%
+  2     JP           37,455   28.21%
+  3     DE           12,883    9.70%
+  4     KR            6,679    5.03%
+  5     FR            5,315    4.00%
+  6     GB            3,864    2.91%
+  7     CN            2,525    1.90%
+  8     CA            1,908    1.44%
+  9     SE            1,543    1.16%
+  10    IT              976    0.74%
+
+── PATENT TRENDS — SELECTED YEARS ───────────────────────
+  Year        Patents   Cumulative
+  ------- ---------- ------------
+  1976            726          726
+  1980            593        3,030
+  1985            815        6,708
+  1990            795       10,467
+  1995          1,036       15,398
+  2000          1,601       22,140
+  2005          2,007       32,028
+  2010          2,897       43,420
+  2012          4,259       50,948
+  2015          6,802       68,332
+  2017          7,864       83,133
+  2019          9,085      100,090
+  2020          8,639      108,729
+  2021          7,887      116,616
+  2022          7,011      123,627
+  2023          6,910      130,537
+  2024          5,852      136,389
+  2025          4,735      141,124
+
+── KEY INSIGHTS ──────────────────────────────────────────
+  1. USA and Japan dominate both invention and IP ownership
+     in green transport, accounting for ~65% of all patents.
+
+  2. Toyota leads all companies with 9,958 patents —
+     nearly 50% more than second-placed Ford (6,748).
+
+  3. Patent filings grew dramatically after 2010,
+     correlating with the global EV revolution and
+     tightening emissions regulations worldwide.
+
+  4. Inventor country vs company country analysis reveals
+     technology transfer: researchers in one country,
+     IP often owned by multinationals in another.
+
+  5. Data quality: 2 PatentsView geocoding errors were
+     identified and corrected (UG→JP, CM→JP).
+==============================================================

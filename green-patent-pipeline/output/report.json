@@ -1,0 +1,309 @@
+{
+  "report_title": "Green Transport Patent Intelligence Report",
+  "focus": "CPC Y02T \u2014 Climate Change Mitigation in Transportation",
+  "generated": "2026-05-01 12:06:36",
+  "dataset": {
+    "total_patents": 141124,
+    "year_range": {
+      "from": 1976,
+      "to": 2025
+    },
+    "total_inventors": 138160,
+    "total_companies": 12201,
+    "unassigned_patents": 8196,
+    "peak_year": {
+      "year": 2019,
+      "patent_count": 9085
+    },
+    "growth_2010_to_2020_pct": 198.2
+  },
+  "y02t_subcategories": {
+    "Y02T10_road_vehicles": 106474,
+    "Y02T50_aviation_propulsion": 29042,
+    "Y02T90_charging_infrastructure": 20770,
+    "Y02T70_maritime": 1775,
+    "Y02T30_aviation_efficiency": 1154,
+    "note": "patents may appear in multiple subcategories"
+  },
+  "top_inventors": [
+    {
+      "rank": 1,
+      "name": "Gopichandra Surnilla",
+      "country": "US",
+      "city": "Beverly Hills",
+      "patent_count": 355
+    },
+    {
+      "rank": 2,
+      "name": "Atsushi Tabata",
+      "country": "JP",
+      "city": "Okazaki",
+      "patent_count": 315
+    },
+    {
+      "rank": 3,
+      "name": "Ross Dykstra Pursifull",
+      "country": "US",
+      "city": "Dearborn",
+      "patent_count": 300
+    },
+    {
+      "rank": 4,
+      "name": "Shinji Ichikawa",
+      "country": "JP",
+      "city": "Toyota",
+      "patent_count": 218
+    },
+    {
+      "rank": 5,
+      "name": "Joseph Norman Ulrey",
+      "country": "US",
+      "city": "Dearborn",
+      "patent_count": 211
+    },
+    {
+      "rank": 6,
+      "name": "Thomas G. Leone",
+      "country": "US",
+      "city": "Ypsilanti",
+      "patent_count": 209
+    },
+    {
+      "rank": 7,
+      "name": "Gabriel L. Suciu",
+      "country": "US",
+      "city": "Glastonbury",
+      "patent_count": 207
+    },
+    {
+      "rank": 8,
+      "name": "Jeffrey Allen Doering",
+      "country": "US",
+      "city": "Canton",
+      "patent_count": 207
+    },
+    {
+      "rank": 9,
+      "name": "Anthony H. Heap",
+      "country": "US",
+      "city": "Ann Arbor",
+      "patent_count": 198
+    },
+    {
+      "rank": 10,
+      "name": "Frederick M. Schwarz",
+      "country": "US",
+      "city": "Glastonbury",
+      "patent_count": 190
+    }
+  ],
+  "top_companies": [
+    {
+      "rank": 1,
+      "name": "TOYOTA JIDOSHA KABUSHIKI KAISHA",
+      "country": "JP",
+      "patent_count": 9958
+    },
+    {
+      "rank": 2,
+      "name": "FORD GLOBAL TECHNOLOGIES, LLC",
+      "country": "US",
+      "patent_count": 6748
+    },
+    {
+      "rank": 3,
+      "name": "General Electric Company",
+      "country": "US",
+      "patent_count": 4740
+    },
+    {
+      "rank": 4,
+      "name": "HONDA MOTOR CO., LTD.",
+      "country": "JP",
+      "patent_count": 4030
+    },
+    {
+      "rank": 5,
+      "name": "GM GLOBAL TECHNOLOGY OPERATIONS LLC",
+      "country": "US",
+      "patent_count": 3750
+    },
+    {
+      "rank": 6,
+      "name": "Hyundai Motor Company",
+      "country": "KR",
+      "patent_count": 3729
+    },
+    {
+      "rank": 7,
+      "name": "Nissan Motor Co., Ltd.",
+      "country": "JP",
+      "patent_count": 2673
+    },
+    {
+      "rank": 8,
+      "name": "Robert Bosch GmbH",
+      "country": "DE",
+      "patent_count": 2636
+    },
+    {
+      "rank": 9,
+      "name": "UNITED TECHNOLOGIES CORPORATION",
+      "country": "US",
+      "patent_count": 2609
+    },
+    {
+      "rank": 10,
+      "name": "The Boeing Company",
+      "country": "US",
+      "patent_count": 2453
+    }
+  ],
+  "top_countries_by_inventor": [
+    {
+      "rank": 1,
+      "country": "US",
+      "patent_count": 61031,
+      "pct_share": 40.83
+    },
+    {
+      "rank": 2,
+      "country": "JP",
+      "patent_count": 37715,
+      "pct_share": 25.23
+    },
+    {
+      "rank": 3,
+      "country": "DE",
+      "patent_count": 15940,
+      "pct_share": 10.66
+    },
+    {
+      "rank": 4,
+      "country": "KR",
+      "patent_count": 6641,
+      "pct_share": 4.44
+    },
+    {
+      "rank": 5,
+      "country": "FR",
+      "patent_count": 6051,
+      "pct_share": 4.05
+    },
+    {
+      "rank": 6,
+      "country": "GB",
+      "patent_count": 4322,
+      "pct_share": 2.89
+    },
+    {
+      "rank": 7,
+      "country": "CN",
+      "patent_count": 3008,
+      "pct_share": 2.01
+    },
+    {
+      "rank": 8,
+      "country": "CA",
+      "patent_count": 2890,
+      "pct_share": 1.93
+    },
+    {
+      "rank": 9,
+      "country": "SE",
+      "patent_count": 1699,
+      "pct_share": 1.14
+    },
+    {
+      "rank": 10,
+      "country": "IT",
+      "patent_count": 1510,
+      "pct_share": 1.01
+    }
+  ],
+  "top_countries_by_company": [
+    {
+      "rank": 1,
+      "country": "US",
+      "patent_count": 54859,
+      "pct_share": 41.32
+    },
+    {
+      "rank": 2,
+      "country": "JP",
+      "patent_count": 37455,
+      "pct_share": 28.21
+    },
+    {
+      "rank": 3,
+      "country": "DE",
+      "patent_count": 12883,
+      "pct_share": 9.7
+    },
+    {
+      "rank": 4,
+      "country": "KR",
+      "patent_count": 6679,
+      "pct_share": 5.03
+    },
+    {
+      "rank": 5,
+      "country": "FR",
+      "patent_count": 5315,
+      "pct_share": 4.0
+    },
+    {
+      "rank": 6,
+      "country": "GB",
+      "patent_count": 3864,
+      "pct_share": 2.91
+    },
+    {
+      "rank": 7,
+      "country": "CN",
+      "patent_count": 2525,
+      "pct_share": 1.9
+    },
+    {
+      "rank": 8,
+      "country": "CA",
+      "patent_count": 1908,
+      "pct_share": 1.44
+    },
+    {
+      "rank": 9,
+      "country": "SE",
+      "patent_count": 1543,
+      "pct_share": 1.16
+    },
+    {
+      "rank": 10,
+      "country": "IT",
+      "patent_count": 976,
+      "pct_share": 0.74
+    }
+  ],
+  "data_quality": {
+    "geocoding_errors_fixed": 2,
+    "errors": [
+      {
+        "inventor": "Shigeo Yamamoto",
+        "wrong_country": "UG",
+        "wrong_city": "Amuru",
+        "corrected_to": "JP",
+        "evidence": "Works exclusively for Mitsubishi/Toyota JP companies"
+      },
+      {
+        "inventor": "Hiroshi Shimizu",
+        "wrong_country": "CM",
+        "wrong_city": "Somalomo",
+        "corrected_to": "JP",
+        "evidence": "Works exclusively for Denso/Sumitomo JP companies"
+      }
+    ],
+    "missing_inventor_country_pct": 0.7,
+    "missing_company_country_pct": 1.7,
+    "duplicate_records": 0,
+    "orphaned_relations": 0
+  }
+}
