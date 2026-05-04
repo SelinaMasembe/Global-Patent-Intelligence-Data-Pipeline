@@ -44,7 +44,7 @@ print("STEP 1: Filtering green transport patents via CPC Y02T...")
 print("=" * 55)
 chunks = pd.read_csv(f"{RAW}/g_cpc_current.tsv", sep="\t",
                      usecols=["patent_id", "cpc_group"],
-                     dtype=ID_DTYPE, chunksize=500_000)
+                     dtype=ID_DTYPE, chunksize=500_000)  # type: ignore
 
 green_ids = set()
 subcategory_counts = {
@@ -80,7 +80,7 @@ print("=" * 55)
 patents = pd.read_csv(f"{RAW}/g_patent.tsv", sep="\t",
                       usecols=["patent_id", "patent_title",
                                 "patent_date", "patent_type", "withdrawn"],
-                      dtype=ID_DTYPE, low_memory=False)
+                      dtype=ID_DTYPE, low_memory=False)  # type: ignore
 
 print(f"  g_patent loaded: {len(patents):,} rows")
 print(f"  patent_type values: "
@@ -105,7 +105,7 @@ print(f"  After withdrawn filter: {len(patents):,} rows "
 # Clean and format
 patents["patent_date"] = pd.to_datetime(
     patents["patent_date"], errors="coerce")
-patents["year"] = patents["patent_date"].dt.year
+patents["year"] = patents["patent_date"].dt.year  # type: ignore
 patents.dropna(subset=["patent_title"], inplace=True)
 patents["patent_title"] = patents["patent_title"].str.strip()
 patents.rename(columns={"patent_title": "title",
@@ -121,7 +121,7 @@ print("\n" + "=" * 55)
 print("STEP 3: Loading abstracts...")
 print("=" * 55)
 abstracts = pd.read_csv(f"{RAW}/g_patent_abstract.tsv", sep="\t",
-                        dtype=ID_DTYPE, low_memory=False)
+                        dtype=ID_DTYPE, low_memory=False)  # type: ignore
 abstracts = abstracts[abstracts["patent_id"].isin(green_ids)].copy()
 abstracts["patent_abstract"] = (abstracts["patent_abstract"]
                                  .fillna("").str.strip())
@@ -159,7 +159,7 @@ inv = pd.read_csv(f"{RAW}/g_inventor_disambiguated.tsv", sep="\t",
                             "disambig_inventor_name_first",
                             "disambig_inventor_name_last",
                             "location_id"],
-                  dtype={**ID_DTYPE,
+                  dtype={**ID_DTYPE,  # type: ignore
                          "inventor_id": str,
                          "location_id": str},
                   low_memory=False)
@@ -169,9 +169,9 @@ print(f"  Inventor-patent links: {len(inv):,}")
 
 inv = inv.merge(loc, on="location_id", how="left")
 inv["name"] = (
-    inv["disambig_inventor_name_first"].fillna("") + " " +
-    inv["disambig_inventor_name_last"].fillna("")
-).str.strip()
+    inv["disambig_inventor_name_first"].fillna("").astype(str) + " " +
+    inv["disambig_inventor_name_last"].fillna("").astype(str)
+).str.strip()  # type: ignore
 inv.rename(columns={"disambig_country": "country",
                      "disambig_city":    "city",
                      "disambig_state":   "state"}, inplace=True)
@@ -205,7 +205,7 @@ asgn = pd.read_csv(f"{RAW}/g_assignee_disambiguated.tsv", sep="\t",
                              "disambig_assignee_individual_name_first",
                              "disambig_assignee_individual_name_last",
                              "assignee_type", "location_id"],
-                   dtype={**ID_DTYPE,
+                   dtype={**ID_DTYPE,  # type: ignore
                           "assignee_id": str,
                           "location_id": str},
                    low_memory=False)
@@ -227,7 +227,7 @@ def resolve_name(row):
     last  = str(row["disambig_assignee_individual_name_last"]  or "").strip()
     return (first + " " + last).strip() or None
 
-asgn["name"] = asgn.apply(resolve_name, axis=1)
+asgn["name"] = asgn.apply(resolve_name, axis=1)  # type: ignore
 
 asgn_unique = (asgn[["assignee_id", "name", "assignee_type",
                        "country", "city", "state"]]

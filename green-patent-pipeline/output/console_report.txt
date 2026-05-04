@@ -1,7 +1,7 @@
 ==============================================================
    GREEN TRANSPORT PATENT INTELLIGENCE REPORT
    Focus: CPC Y02T — Climate Change Mitigation in Transport
-   Generated: 2026-05-01 12:06:36
+   Generated: 2026-05-04 15:32:56
 ==============================================================
 
 ── DATASET OVERVIEW ──────────────────────────────────────
@@ -116,6 +116,7 @@
      technology transfer: researchers in one country,
      IP often owned by multinationals in another.
 
-  5. Data quality: 2 PatentsView geocoding errors were
-     identified and corrected (UG→JP, CM→JP).
+  5. Data quality: 5 PatentsView geocoding errors were
+     identified and corrected across inventors and companies
+     (UG→JP: Yamamoto + 3 companies, CM→JP: Shimizu).
 ==============================================================

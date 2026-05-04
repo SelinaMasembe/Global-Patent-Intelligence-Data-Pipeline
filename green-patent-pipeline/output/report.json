@@ -1,7 +1,7 @@
 {
   "report_title": "Green Transport Patent Intelligence Report",
   "focus": "CPC Y02T \u2014 Climate Change Mitigation in Transportation",
-  "generated": "2026-05-01 12:06:36",
+  "generated": "2026-05-04 15:32:56",
   "dataset": {
     "total_patents": 141124,
     "year_range": {
@@ -284,21 +284,44 @@
     }
   ],
   "data_quality": {
-    "geocoding_errors_fixed": 2,
-    "errors": [
+    "geocoding_errors_fixed": 5,
+    "inventor_errors": [
       {
         "inventor": "Shigeo Yamamoto",
         "wrong_country": "UG",
         "wrong_city": "Amuru",
         "corrected_to": "JP",
-        "evidence": "Works exclusively for Mitsubishi/Toyota JP companies"
+        "evidence": "Works exclusively for Mitsubishi/Toyota"
       },
       {
         "inventor": "Hiroshi Shimizu",
         "wrong_country": "CM",
         "wrong_city": "Somalomo",
         "corrected_to": "JP",
-        "evidence": "Works exclusively for Denso/Sumitomo JP companies"
+        "evidence": "Works exclusively for Denso/Sumitomo"
+      }
+    ],
+    "company_errors": [
+      {
+        "company": "Aisan Industry Co., Ltd.",
+        "wrong_country": "UG",
+        "wrong_city": "Amuru",
+        "corrected_to": "JP",
+        "evidence": "HQ: Obu, Aichi, Japan (est. 1938)"
+      },
+      {
+        "company": "AISAN KOGYO KABUSHIKI KAISHA",
+        "wrong_country": "UG",
+        "wrong_city": "Amuru",
+        "corrected_to": "JP",
+        "evidence": "Japanese corporate name for Aisan Industry"
+      },
+      {
+        "company": "TOKAI KOGYO CO., LTD.",
+        "wrong_country": "UG",
+        "wrong_city": "Amuru",
+        "corrected_to": "JP",
+        "evidence": "Japanese automotive supplier"
       }
     ],
     "missing_inventor_country_pct": 0.7,
