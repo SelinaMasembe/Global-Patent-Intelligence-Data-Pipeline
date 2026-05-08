@@ -47,13 +47,13 @@ Geocoding errors identified and fixed:
 import pandas as pd
 import os
 
-# ── Force working directory to project root ───────────────────────────────────
+#Force working directory to project root
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 print(f"Working directory: {os.getcwd()}")
 
 CLEAN = "data/clean"
 
-# ── Load all clean files ──────────────────────────────────────────────────────
+#Load all clean files 
 print("\n" + "=" * 55)
 print("LOADING CLEAN FILES FOR QUALITY CHECK")
 print("=" * 55)
@@ -72,7 +72,7 @@ issues_fixed = 0
 
 def report(label, count, fixed=False):
     global issues_found, issues_fixed
-    status = "✓ OK" if count == 0 else ("→ FIXED" if fixed else "⚠ FOUND")
+    status = "OK" if count == 0 else ("FIXED" if fixed else "FOUND")
     print(f"  {status}: {label}: {count:,}")
     if count > 0:
         issues_found += count
@@ -155,7 +155,7 @@ if empty_names > 0:
 missing_country = inventors["country"].isna().sum()
 report("Inventors with missing country (kept — expected)", missing_country)
 
-# 9. Known inventor geocoding errors ──────────────────────────────
+# 9. Known inventor geocoding errors 
 print("\n  Fixing known PatentsView inventor geocoding errors...")
 
 # UG/Amuru: Shigeo Yamamoto — Japanese inventor misgeocoded to Uganda
@@ -171,7 +171,7 @@ if ug_inv_count > 0:
         (inventors["city"] == "Amuru"), "city"
     ] = None
     report(
-        "Fixed UG/Amuru → JP (Shigeo Yamamoto geocoding error)",
+        "Fixed UG/Amuru > JP (Shigeo Yamamoto geocoding error)",
         ug_inv_count, fixed=True
     )
 else:
@@ -191,7 +191,7 @@ if cm_inv_count > 0:
         (inventors["city"] == "Somalomo"), "city"
     ] = None
     report(
-        "Fixed CM/Somalomo → JP (Hiroshi Shimizu geocoding error)",
+        "Fixed CM/Somalomo > JP (Hiroshi Shimizu geocoding error)",
         cm_inv_count, fixed=True
     )
 else:
@@ -221,7 +221,7 @@ if empty_names > 0:
     ] = None
     report("Removed empty-name companies", empty_names, fixed=True)
 
-# 12. Known company geocoding errors ──────────────────────────────
+# 12. Known company geocoding errors 
 print("\n  Fixing known PatentsView company geocoding errors...")
 
 # UG/Amuru companies — all three are Japanese automotive suppliers:
@@ -319,10 +319,10 @@ inventors.to_csv(f"{CLEAN}/clean_inventors.csv", index=False)
 companies.to_csv(f"{CLEAN}/clean_companies.csv", index=False)
 relations.to_csv(f"{CLEAN}/clean_relations.csv", index=False)
 
-print(f"  ✓ clean_patents.csv   : {len(patents):,} rows")
-print(f"  ✓ clean_inventors.csv : {len(inventors):,} rows")
-print(f"  ✓ clean_companies.csv : {len(companies):,} rows")
-print(f"  ✓ clean_relations.csv : {len(relations):,} rows")
+print(f"  OK: clean_patents.csv   : {len(patents):,} rows")
+print(f"  OK: clean_inventors.csv : {len(inventors):,} rows")
+print(f"  OK: clean_companies.csv : {len(companies):,} rows")
+print(f"  OK: clean_relations.csv : {len(relations):,} rows")
 
 # ════════════════════════════════════════════════════════
 print("\n" + "=" * 55)
@@ -334,11 +334,11 @@ print(f"  Remaining issues   : {issues_found - issues_fixed:,} "
       f"(expected nulls only)")
 print("\nGeocoding errors fixed:")
 print("  INVENTORS:")
-print("    ✓ Shigeo Yamamoto  : UG/Amuru    → JP (138 records)")
-print("    ✓ Hiroshi Shimizu  : CM/Somalomo → JP  (83 records)")
+print("    FIXED: Shigeo Yamamoto  : UG/Amuru    > JP (138 records)")
+print("    FIXED: Hiroshi Shimizu  : CM/Somalomo > JP  (83 records)")
 print("  COMPANIES:")
-print("    ✓ Aisan Industry   : UG/Amuru    → JP")
-print("    ✓ AISAN KOGYO      : UG/Amuru    → JP")
-print("    ✓ TOKAI KOGYO      : UG/Amuru    → JP")
+print("    FIXED: Aisan Industry   : UG/Amuru    > JP")
+print("    FIXED: AISAN KOGYO      : UG/Amuru    > JP")
+print("    FIXED: TOKAI KOGYO      : UG/Amuru    > JP")
 print("    (3 companies, 128 patents reassigned to JP)")
 print("\n  Data is clean and ready for 03_load_db.py")

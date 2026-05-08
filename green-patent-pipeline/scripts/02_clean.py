@@ -24,7 +24,7 @@ Output files saved to data/clean/:
 import pandas as pd
 import os
 
-# ── Force working directory to project root 
+#Force working directory to project root 
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 print(f"Working directory: {os.getcwd()}")
 
@@ -303,4 +303,4 @@ for fname in ["clean_patents.csv", "clean_inventors.csv",
         print(f"    Size: {size:.1f} MB")
         print(f"    Columns: {list(df.columns)}")
     else:
-        print(f"  ✗ MISSING: {fname}")
+        print(f"  MISSING: {fname}")

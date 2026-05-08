@@ -82,10 +82,12 @@ st.sidebar.divider()
 page = st.sidebar.radio(
     "Navigation",
     ["Overview",
-     "Trends Over Time",
-     "Top Inventors",
-     "Top Companies",
-     "Country Analysis",
+     "Trends Over Time (Descriptive)",
+     "Top Inventors (Descriptive)",
+     "Top Companies (Descriptive)",
+     "Country Analysis (Descriptive)",
+     "Diagnostic Analysis",
+     "Predictive Analysis",
      "Patent Explorer"]
 )
 
@@ -203,9 +205,9 @@ if page == "Overview":
     st.plotly_chart(fig3, use_container_width=True)
 
 # ════════════════════════════════════════════════════════════════════
-# PAGE 2 — TRENDS OVER TIME
+# PAGE 2 — TRENDS OVER TIME (DESCRIPTIVE)
 # ════════════════════════════════════════════════════════════════════
-elif page == "Trends Over Time":
+elif page == "Trends Over Time (Descriptive)":
     st.title("Patent Trends Over Time")
     st.markdown("Track the evolution of green transport innovation from 1976 to 2025.")
 
@@ -272,9 +274,9 @@ elif page == "Trends Over Time":
     }), use_container_width=True, hide_index=True)
 
 # ════════════════════════════════════════════════════════════════════
-# PAGE 3 — TOP INVENTORS
+# PAGE 3 — TOP INVENTORS (DESCRIPTIVE)
 # ════════════════════════════════════════════════════════════════════
-elif page == "Top Inventors":
+elif page == "Top Inventors (Descriptive)":
     st.title("Top Green Transport Inventors")
 
     n = st.slider("Number of inventors to show", 10, 50, 20, key="top_inventors_count")
@@ -339,9 +341,9 @@ elif page == "Top Inventors":
     }), use_container_width=True, hide_index=True)
 
 # ════════════════════════════════════════════════════════════════════
-# PAGE 4 — TOP COMPANIES
+# PAGE 4 — TOP COMPANIES (DESCRIPTIVE)
 # ════════════════════════════════════════════════════════════════════
-elif page == "Top Companies":
+elif page == "Top Companies (Descriptive)":
     st.title("Top Green Transport Companies")
 
     n = st.slider("Number of companies to show", 10, 50, 20, key="top_companies_count")
@@ -402,9 +404,9 @@ elif page == "Top Companies":
         }), use_container_width=True, hide_index=True)
 
 # ════════════════════════════════════════════════════════════════════
-# PAGE 5 — COUNTRY ANALYSIS
+# PAGE 5 — COUNTRY ANALYSIS (DESCRIPTIVE)
 # ════════════════════════════════════════════════════════════════════
-elif page == "Country Analysis":
+elif page == "Country Analysis (Descriptive)":
     st.title("Country Analysis")
     st.markdown("Compare research origins (inventor location) versus IP ownership (company location) to understand global technology transfer patterns.")
 
@@ -485,7 +487,267 @@ elif page == "Country Analysis":
     }), use_container_width=True, hide_index=True)
 
 # ════════════════════════════════════════════════════════════════════
-# PAGE 6 — PATENT EXPLORER
+# PAGE 6 — DIAGNOSTIC ANALYSIS
+# ════════════════════════════════════════════════════════════════════
+elif page == "Diagnostic Analysis":
+    st.title("Diagnostic Analysis: Why Did It Happen?")
+    st.markdown("""
+    Diagnostic analysis goes beyond *what* happened to explain
+    *why* green transport patent activity follows the patterns we see.
+    """)
+
+    tab1, tab2, tab3 = st.tabs([
+        "Citation-Weighted Rankings",
+        "Technology Emergence",
+        "Policy Correlations"
+    ])
+
+    with tab1:
+
+        citations_file = "output/top_companies_by_citations.csv"
+        avg_citations_file = "output/top_companies_by_avg_citations.csv"
+
+        if os.path.exists(citations_file):
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown("**By Total Citations (portfolio influence)**")
+                df = pd.read_csv(citations_file)
+                fig = px.bar(df.head(15),
+                             x="total_citations", y="name",
+                             orientation="h",
+                             color="country",
+                             labels={"name": "Company",
+                                      "total_citations": "Total Citations"})
+                fig.update_layout(
+                    yaxis=dict(autorange="reversed"), height=500)
+                st.plotly_chart(fig, use_container_width=True)
+
+            with col2:
+                st.markdown("**By Avg Citations Per Patent (quality)**")
+                df2 = pd.read_csv(avg_citations_file)
+                fig2 = px.bar(df2.head(15),
+                              x="avg_citations_per_patent", y="name",
+                              orientation="h",
+                              color="country",
+                              labels={
+                                  "name": "Company",
+                                  "avg_citations_per_patent":
+                                      "Avg Citations / Patent"})
+                fig2.update_layout(
+                    yaxis=dict(autorange="reversed"), height=500)
+                st.plotly_chart(fig2, use_container_width=True)
+
+            st.subheader("Rank Comparison: Count vs Citation")
+            st.markdown("""
+            Companies that drop significantly when switching from
+            count-based to citation-based ranking are filing many
+            low-impact patents. Companies that rise are filing fewer
+            but more influential patents.
+            """)
+            rank_df = pd.read_csv("output/rank_comparison.csv")
+            st.dataframe(rank_df, use_container_width=True,
+                         hide_index=True)
+        else:
+            st.info("""
+            Citation analysis requires `g_us_patent_citation.tsv`.
+            Download from the USPTO portal and re-run the pipeline.
+            See README.md for instructions.
+            """)
+
+    with tab2:
+        st.subheader("Technology Emergence by Y02T Subcategory")
+        st.markdown("""
+        Comparing patent counts in 2020-2024 vs 2015-2019 reveals
+        which green transport technologies are accelerating.
+        This diagnoses the underlying drivers of overall growth.
+        """)
+        emergence_file = "output/subcategory_emergence.csv"
+        if os.path.exists(emergence_file):
+            df = pd.read_csv(emergence_file, index_col=0)
+            df = df.reset_index()
+            df.columns = [
+                "Subcategory", "2015-2019", "2020-2024",
+                "Growth %", "Trend"
+            ]
+            fig = px.bar(
+                df, x="Subcategory",
+                y=["2015-2019", "2020-2024"],
+                barmode="group",
+                color_discrete_sequence=["#95a5a6", "#2ecc71"],
+                labels={"value": "Patents", "variable": "Period"}
+            )
+            fig.update_layout(height=400)
+            st.plotly_chart(fig, use_container_width=True)
+            st.dataframe(df, use_container_width=True,
+                         hide_index=True)
+
+    with tab3:
+        st.subheader("Policy & Industry Correlations")
+        st.markdown("""
+        Green transport patent trends do not happen in isolation.
+        The chart below overlays key policy events on the patent
+        trend line, providing diagnostic explanation for the
+        observed acceleration points.
+        """)
+
+        with sqlite3.connect("patents.db") as conn:
+            trend = pd.read_sql_query("""
+                SELECT CAST(year AS INTEGER) as year,
+                       COUNT(*) as patents
+                FROM patents
+                WHERE year BETWEEN 1990 AND 2025
+                GROUP BY year ORDER BY year
+            """, conn)
+
+        fig = px.line(trend, x="year", y="patents",
+                      color_discrete_sequence=["#2ecc71"],
+                      labels={"year": "Year",
+                               "patents": "Patents Granted"})
+
+        # Add policy event annotations
+        events = [
+            (2005, "Prius success\n+ Kyoto"),
+            (2010, "US CAFE\nstandards"),
+            (2015, "Paris\nAgreement"),
+            (2017, "China #1\nEV market"),
+            (2020, "EU Green\nDeal"),
+            (2022, "US IRA\nEV credits"),
+        ]
+        for year, label in events:
+            fig.add_vline(
+                x=year, line_dash="dash",
+                line_color="rgba(231,76,60,0.5)",
+                annotation_text=label,
+                annotation_position="top"
+            )
+
+        fig.update_layout(height=500)
+        st.plotly_chart(fig, use_container_width=True)
+
+        st.markdown("""
+        **External sources:**
+        - [IEA Global EV Outlook 2024](https://www.iea.org/reports/global-ev-outlook-2024)
+        - [ICAO Aviation Environment](https://www.icao.int/environmental-protection)
+        - [IMO GHG Strategy 2023](https://www.imo.org/en/MediaCentre/PressBriefings/pages/Revised-GHG-reduction-strategy.aspx)
+        - [EU Green Deal](https://ec.europa.eu/info/strategy/priorities-2019-2024/european-green-deal_en)
+        """)
+
+# ════════════════════════════════════════════════════════════════════
+# PAGE 7 — PREDICTIVE ANALYSIS
+# ════════════════════════════════════════════════════════════════════
+elif page == "Predictive Analysis":
+    st.title("Predictive Analysis: What Will Happen?")
+    st.markdown("""
+    Using historical patent trends to forecast future green
+    transport innovation activity.
+    """)
+
+    tab1, tab2 = st.tabs([
+        "Patent Forecast 2030",
+        "Country Momentum"
+    ])
+
+    with tab1:
+        st.subheader("Green Transport Patent Forecast to 2030")
+        st.markdown("""
+        **Methodology:** Linear regression trained on 2014-2024 data
+        (the modern EV era). The model projects the current growth
+        trend forward assuming no major policy or technology disruption.
+
+        **Limitation:** Linear regression cannot capture policy shocks,
+        technology breakthroughs, or economic downturns. The 2025 dip
+        visible in actual data may reflect processing lag in the
+        PatentsView dataset rather than a genuine slowdown.
+        """)
+
+        forecast_file = "output/patent_forecast_2030.csv"
+        if os.path.exists(forecast_file):
+            df = pd.read_csv(forecast_file)
+            actual   = df[df["type"] == "actual"]
+            forecast = df[df["type"] == "forecast"]
+
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(
+                x=actual["year"], y=actual["predicted_patents"],
+                mode="lines+markers", name="Actual (modelled)",
+                line=dict(color="#2ecc71", width=2)
+            ))
+            fig.add_trace(go.Scatter(
+                x=forecast["year"],
+                y=forecast["predicted_patents"],
+                mode="lines+markers", name="Forecast",
+                line=dict(color="#e74c3c", width=2, dash="dash"),
+                marker=dict(symbol="diamond")
+            ))
+            fig.update_layout(
+                xaxis_title="Year",
+                yaxis_title="Predicted Patents",
+                height=450,
+                legend=dict(x=0.02, y=0.98)
+            )
+            st.plotly_chart(fig, use_container_width=True)
+
+            col1, col2, col3 = st.columns(3)
+            forecast_2027 = int(
+                df[df["year"] == 2027]["predicted_patents"].iloc[0])  # type: ignore
+            forecast_2030 = int(
+                df[df["year"] == 2030]["predicted_patents"].iloc[0])  # type: ignore
+            col1.metric("Forecast 2027", f"{forecast_2027:,}")
+            col2.metric("Forecast 2030", f"{forecast_2030:,}")
+            col3.metric("Model", "Linear Regression")
+
+            st.dataframe(
+                df[df["year"] >= 2024].rename(columns={
+                    "year": "Year",
+                    "predicted_patents": "Predicted Patents",
+                    "type": "Type"
+                }),
+                use_container_width=True,
+                hide_index=True
+            )
+
+    with tab2:
+        st.subheader("Country Momentum Index")
+        st.markdown("""
+        Compares each country's share of global green transport
+        patents in **2019-2024** vs **2014-2018**.
+
+        A positive change indicates the country is gaining ground
+        in green transport innovation relative to the global field.
+        This predicts which countries are likely to dominate future
+        green transport IP.
+        """)
+
+        momentum_file = "output/country_momentum.csv"
+        if os.path.exists(momentum_file):
+            df = pd.read_csv(momentum_file, index_col=0)
+            df = df.reset_index()
+            df.columns = [
+                "Country", "Patents 2014-18", "Patents 2019-24",
+                "Share 2014-18 %", "Share 2019-24 %",
+                "Share Change %", "Momentum"
+            ]
+
+            fig = px.bar(
+                df.head(20),
+                x="Country", y="Share Change %",
+                color="Share Change %",
+                color_continuous_scale=["#e74c3c", "#f39c12",
+                                         "#2ecc71"],
+                labels={"Share Change %":
+                            "Change in Global Share (%)"},
+                title="Change in global patent share: 2014-18 vs 2019-24"
+            )
+            fig.add_hline(y=0, line_color="white",
+                          line_dash="dash")
+            fig.update_layout(height=450,
+                              coloraxis_showscale=False)
+            st.plotly_chart(fig, use_container_width=True)
+            st.dataframe(df, use_container_width=True,
+                         hide_index=True)
+
+# ════════════════════════════════════════════════════════════════════
+# PAGE 8 — PATENT EXPLORER
 # ════════════════════════════════════════════════════════════════════
 elif page == "Patent Explorer":
     st.title("Patent Explorer")

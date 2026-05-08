@@ -1,122 +1,1011 @@
-==============================================================
-   GREEN TRANSPORT PATENT INTELLIGENCE REPORT
-   Focus: CPC Y02T — Climate Change Mitigation in Transport
-   Generated: 2026-05-04 15:32:56
-==============================================================
 
-── DATASET OVERVIEW ──────────────────────────────────────
-  Total active green transport patents :    141,124
-  Date range                           : 1976 — 2025
-  Unique inventors                     :    138,160
-  Unique companies / assignees         :     12,201
-  Patents with no assignee             :      8,196
-  Peak filing year                     : 2019 (9,085 patents)
-  Growth 2010 → 2020                   :     198.2%
+============================================================
+GREEN TRANSPORT PATENT INTELLIGENCE — FULL PIPELINE
+Started: 2026-05-08 23:07:55
+============================================================
 
-── Y02T SUBCATEGORY COVERAGE ─────────────────────────────
-  Y02T10  Road vehicles (EVs, hybrids, fuel cells) : 106,474
-  Y02T50  Aviation propulsion & materials           :  29,042
-  Y02T90  Charging & hydrogen infrastructure        :  20,770
-  Y02T70  Maritime green shipping                   :   1,775
-  Y02T30  Aviation fuel efficiency                  :   1,154
-  Note: patents may appear in multiple subcategories
+------------------------------------------------------------
+STEP 0 — Verify raw data file columns
+Time: 23:07:55
+------------------------------------------------------------
+Working directory: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline
 
-── TOP 10 INVENTORS ──────────────────────────────────────
-  Rank  Name                                Country  Patents
-  ---- ---------------------------------- ------- -------
-  1     Gopichandra Surnilla                US           355
-  2     Atsushi Tabata                      JP           315
-  3     Ross Dykstra Pursifull              US           300
-  4     Shinji Ichikawa                     JP           218
-  5     Joseph Norman Ulrey                 US           211
-  6     Thomas G. Leone                     US           209
-  7     Gabriel L. Suciu                    US           207
-  8     Jeffrey Allen Doering               US           207
-  9     Anthony H. Heap                     US           198
-  10    Frederick M. Schwarz                US           190
+=======================================================
+CHECKING RAW DATA FILES
+=======================================================
 
-── TOP 10 COMPANIES ──────────────────────────────────────
-  Rank  Company                                Ctry   Patents
-  ---- ------------------------------------- ----- -------
-  1     TOYOTA JIDOSHA KABUSHIKI KAISHA        JP       9,958
-  2     FORD GLOBAL TECHNOLOGIES, LLC          US       6,748
-  3     General Electric Company               US       4,740
-  4     HONDA MOTOR CO., LTD.                  JP       4,030
-  5     GM GLOBAL TECHNOLOGY OPERATIONS LLC    US       3,750
-  6     Hyundai Motor Company                  KR       3,729
-  7     Nissan Motor Co., Ltd.                 JP       2,673
-  8     Robert Bosch GmbH                      DE       2,636
-  9     UNITED TECHNOLOGIES CORPORATION        US       2,609
-  10    The Boeing Company                     US       2,453
+  ✓ g_patent.tsv (1071 MB)
+    Columns OK: ['patent_id', 'patent_title', 'patent_date', 'patent_type', 'withdrawn']
 
-── TOP 10 COUNTRIES — BY INVENTOR LOCATION ──────────────
-  (Where the research and invention happens)
-  Rank  Country     Patents    Share
-  ---- --------- -------- --------
-  1     US           61,031   40.83%
-  2     JP           37,715   25.23%
-  3     DE           15,940   10.66%
-  4     KR            6,641    4.44%
-  5     FR            6,051    4.05%
-  6     GB            4,322    2.89%
-  7     CN            3,008    2.01%
-  8     CA            2,890    1.93%
-  9     SE            1,699    1.14%
-  10    IT            1,510    1.01%
+  ✓ g_patent_abstract.tsv (5948 MB)
+    Columns OK: ['patent_id', 'patent_abstract']
 
-── TOP 10 COUNTRIES — BY COMPANY LOCATION ───────────────
-  (Where the intellectual property is owned)
-  Rank  Country     Patents    Share
-  ---- --------- -------- --------
-  1     US           54,859   41.32%
-  2     JP           37,455   28.21%
-  3     DE           12,883    9.70%
-  4     KR            6,679    5.03%
-  5     FR            5,315    4.00%
-  6     GB            3,864    2.91%
-  7     CN            2,525    1.90%
-  8     CA            1,908    1.44%
-  9     SE            1,543    1.16%
-  10    IT              976    0.74%
+  ✓ g_inventor_disambiguated.tsv (2190 MB)
+    Columns OK: ['patent_id', 'inventor_id', 'disambig_inventor_name_first', 'disambig_inventor_name_last', 'location_id']
 
-── PATENT TRENDS — SELECTED YEARS ───────────────────────
-  Year        Patents   Cumulative
-  ------- ---------- ------------
-  1976            726          726
-  1980            593        3,030
-  1985            815        6,708
-  1990            795       10,467
-  1995          1,036       15,398
-  2000          1,601       22,140
-  2005          2,007       32,028
-  2010          2,897       43,420
-  2012          4,259       50,948
-  2015          6,802       68,332
-  2017          7,864       83,133
-  2019          9,085      100,090
-  2020          8,639      108,729
-  2021          7,887      116,616
-  2022          7,011      123,627
-  2023          6,910      130,537
-  2024          5,852      136,389
-  2025          4,735      141,124
+  ✓ g_assignee_disambiguated.tsv (1055 MB)
+    Columns OK: ['patent_id', 'assignee_id', 'disambig_assignee_organization', 'disambig_assignee_individual_name_first', 'disambig_assignee_individual_name_last', 'assignee_type', 'location_id']
 
-── KEY INSIGHTS ──────────────────────────────────────────
-  1. USA and Japan dominate both invention and IP ownership
-     in green transport, accounting for ~65% of all patents.
+  ✓ g_location_disambiguated.tsv (9 MB)
+    Columns OK: ['location_id', 'disambig_country', 'disambig_city', 'disambig_state']
 
-  2. Toyota leads all companies with 9,958 patents —
-     nearly 50% more than second-placed Ford (6,748).
+  ✓ g_cpc_current.tsv (3225 MB)
+    Columns OK: ['patent_id', 'cpc_group']
 
-  3. Patent filings grew dramatically after 2010,
-     correlating with the global EV revolution and
-     tightening emissions regulations worldwide.
+=======================================================
+ALL FILES OK — ready to run 02_clean.py
+=======================================================
 
-  4. Inventor country vs company country analysis reveals
-     technology transfer: researchers in one country,
-     IP often owned by multinationals in another.
+COMPLETED: STEP 0 — Verify raw data file columns
 
-  5. Data quality: 5 PatentsView geocoding errors were
-     identified and corrected across inventors and companies
-     (UG→JP: Yamamoto + 3 companies, CM→JP: Shimizu).
-==============================================================
+------------------------------------------------------------
+STEP 1 — Clean and filter data
+Time: 23:07:55
+------------------------------------------------------------
+Working directory: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline
+Clean folder: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline/data/clean
+
+=======================================================
+STEP 1: Filtering green transport patents via CPC Y02T...
+=======================================================
+141,125 Y02T patent IDs found
+
+  Subcategory breakdown:
+    Y02T10 Road vehicles (EVs, hybrids, fuel cells): 106,474
+    Y02T30 Aviation fuel efficiency:                 1,154
+    Y02T50 Aviation propulsion & materials:          29,042
+    Y02T70 Maritime green shipping:                  1,775
+    Y02T90 Charging & hydrogen infrastructure:       20,770
+    Note: patents may appear in multiple subcategories
+
+=======================================================
+STEP 2: Loading and filtering patents...
+=======================================================
+  g_patent loaded: 9,454,161 rows
+  patent_type values: {'utility': 8531961, 'design': 864433, 'plant': 33141, 'reissue': 21855, 'statutory invention registration': 2259, 'defensive publication': 509, 'TVPP': 3}
+  After Y02T filter: 141,125 rows
+  After utility filter: 141,124 rows
+  Withdrawn values: {'0': 141124}
+  After withdrawn filter: 141,124 rows (removed 0)
+  Final active Y02T patent IDs: 141,124
+
+=======================================================
+STEP 3: Loading abstracts...
+=======================================================
+  Saved: data/clean/clean_patents.csv
+  Rows: 141,124
+  File exists: True
+  File size: 108.5 MB
+
+=======================================================
+STEP 4: Loading location reference table...
+=======================================================
+  100,452 locations loaded
+
+=======================================================
+STEP 5: Loading inventors...
+=======================================================
+  Inventor-patent links: 387,360
+  Saved: data/clean/clean_inventors.csv
+  Rows: 138,160 unique inventors
+  File exists: True
+  File size: 6.4 MB
+  Location merge check:
+    Missing country: 932 (0.7%)
+    Top 5 countries: {'US': 48943, 'JP': 31303, 'DE': 17474, 'KR': 7108, 'FR': 6607}
+
+=======================================================
+STEP 6: Loading assignees...
+=======================================================
+  Assignee-patent links: 141,347
+  Saved: data/clean/clean_companies.csv
+  Rows: 12,201 unique companies
+  File exists: True
+  File size: 1.0 MB
+  Location merge check:
+    Missing country: 213 (1.7%)
+    Top 5 countries: {'US': 5104, 'JP': 1176, 'DE': 1034, 'CN': 825, 'FR': 530}
+
+=======================================================
+STEP 7: Building relations table...
+=======================================================
+  Saved: data/clean/clean_relations.csv
+  Rows: 419,757
+  File exists: True
+  File size: 25.3 MB
+
+=======================================================
+PIPELINE COMPLETE — SUMMARY
+=======================================================
+  clean_patents.csv   : 141,124 rows
+  clean_inventors.csv : 138,160 rows
+  clean_companies.csv : 12,201 rows
+  clean_relations.csv : 419,757 rows
+
+  All files saved to: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline/data/clean
+
+Filters applied:
+  CPC Y02T green transportation classification
+    (Y02T10 road, Y02T30/50 aviation, Y02T70 maritime, Y02T90 infrastructure)
+  Utility patents only
+  Non-withdrawn (active) patents only
+
+Location data:
+  Inventors — country, city, state
+  Companies — country, city, state
+
+=======================================================
+FILE VERIFICATION
+=======================================================
+  clean_patents.csv
+    Size: 108.5 MB
+    Columns: ['patent_id', 'filing_date', 'title', 'year', 'abstract']
+  clean_inventors.csv
+    Size: 6.4 MB
+    Columns: ['inventor_id', 'name', 'country', 'city', 'state']
+  clean_companies.csv
+    Size: 1.0 MB
+    Columns: ['company_id', 'name', 'assignee_type', 'country', 'city', 'state']
+  clean_relations.csv
+    Size: 25.3 MB
+    Columns: ['patent_id', 'inventor_id', 'company_id']
+
+COMPLETED: STEP 1 — Clean and filter data
+
+------------------------------------------------------------
+STEP 2 — Data quality checks and fixes
+Time: 23:10:52
+------------------------------------------------------------
+Working directory: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline
+
+=======================================================
+LOADING CLEAN FILES FOR QUALITY CHECK
+=======================================================
+  patents   : 141,124 rows
+  inventors : 138,160 rows
+  companies : 12,201 rows
+  relations : 419,757 rows
+
+=======================================================
+PATENTS TABLE CHECKS
+=======================================================
+  OK: Duplicate patent_ids: 0
+  OK: Missing or empty titles: 0
+  FOUND: Missing abstracts (kept — optional field): 5
+  OK: Invalid or missing years: 0
+  OK: Missing filing dates: 0
+
+=======================================================
+INVENTORS TABLE CHECKS
+=======================================================
+  OK: Duplicate inventor_ids: 0
+  OK: Empty or whitespace inventor names: 0
+  FOUND: Inventors with missing country (kept — expected): 932
+
+  Fixing known PatentsView inventor geocoding errors...
+  FIXED: Fixed UG/Amuru > JP (Shigeo Yamamoto geocoding error): 138
+  FIXED: Fixed CM/Somalomo > JP (Hiroshi Shimizu geocoding error): 83
+
+=======================================================
+COMPANIES TABLE CHECKS
+=======================================================
+  OK: Duplicate company_ids: 0
+  OK: Empty or whitespace company names: 0
+
+  Fixing known PatentsView company geocoding errors...
+  FIXED: Fixed UG/Amuru → JP companies (Aisan Industry, AISAN KOGYO, TOKAI KOGYO): 3
+  FOUND: Companies with missing country (kept — expected): 213
+
+=======================================================
+RELATIONS TABLE CHECKS
+=======================================================
+  OK: Relations with orphaned patent_id: 0
+  OK: Relations with orphaned inventor_id: 0
+  OK: Relations with orphaned company_id: 0
+  FOUND: Relations with no company (unassigned — expected): 11,144
+
+=======================================================
+NULL SUMMARY PER TABLE
+=======================================================
+  patents     : no nulls
+  inventors   : nulls in:
+    country        : 932 (0.7%) ← expected
+    city           : 1,153 (0.8%) ← expected
+    state          : 86,777 (62.8%) ← expected
+  companies   : nulls in:
+    assignee_type  : 31 (0.3%) ← expected
+    country        : 213 (1.7%) ← expected
+    city           : 233 (1.9%) ← expected
+    state          : 6,741 (55.2%) ← expected
+  relations   : nulls in:
+    company_id     : 11,144 (2.7%) ← expected
+
+=======================================================
+SAVING QUALITY-CHECKED FILES
+=======================================================
+  OK: clean_patents.csv   : 141,124 rows
+  OK: clean_inventors.csv : 138,160 rows
+  OK: clean_companies.csv : 12,201 rows
+  OK: clean_relations.csv : 419,757 rows
+
+=======================================================
+QUALITY CHECK SUMMARY
+=======================================================
+  Total issues found : 12,518
+  Total issues fixed : 224
+  Remaining issues   : 12,294 (expected nulls only)
+
+Geocoding errors fixed:
+  INVENTORS:
+    FIXED: Shigeo Yamamoto  : UG/Amuru    > JP (138 records)
+    FIXED: Hiroshi Shimizu  : CM/Somalomo > JP  (83 records)
+  COMPANIES:
+    FIXED: Aisan Industry   : UG/Amuru    > JP
+    FIXED: AISAN KOGYO      : UG/Amuru    > JP
+    FIXED: TOKAI KOGYO      : UG/Amuru    > JP
+    (3 companies, 128 patents reassigned to JP)
+
+  Data is clean and ready for 03_load_db.py
+
+COMPLETED: STEP 2 — Data quality checks and fixes
+
+------------------------------------------------------------
+STEP 3 — Load into SQLite database
+Time: 23:10:55
+------------------------------------------------------------
+Working directory: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline
+
+=======================================================
+VERIFYING CLEAN FILES EXIST
+=======================================================
+  yes clean_patents.csv (108.5 MB)
+  yes clean_inventors.csv (6.4 MB)
+  yes clean_companies.csv (1.0 MB)
+  yes clean_relations.csv (25.3 MB)
+
+=======================================================
+CREATING DATABASE SCHEMA
+=======================================================
+  Schema created in patents.db
+
+=======================================================
+LOADING TABLES INTO SQLITE
+=======================================================
+
+Loading patents...
+  chunk 1: 100,000 rows loaded
+  chunk 2: 141,124 rows loaded
+ patents: 141,124 rows          
+
+Loading inventors...
+  chunk 1: 100,000 rows loaded
+  chunk 2: 138,160 rows loaded
+ inventors: 138,160 rows          
+
+Loading companies...
+  chunk 1: 12,201 rows loaded
+ companies: 12,201 rows          
+
+Loading relations...
+  chunk 1: 100,000 rows loaded
+  chunk 2: 200,000 rows loaded
+  chunk 3: 300,000 rows loaded
+  chunk 4: 400,000 rows loaded
+  chunk 5: 419,757 rows loaded
+ relations: 419,757 rows          
+
+=======================================================
+CREATING INDEXES
+=======================================================
+  9 indexes created
+
+=======================================================
+VERIFICATION
+=======================================================
+  patents     : 141,124 rows
+  inventors   : 138,160 rows
+  companies   : 12,201 rows
+  relations   : 419,757 rows
+
+Spot check JOIN (patent + inventor + company):
+
+  Patent  : 10000025 (2018)
+  Title   : Optimized cross-ply orientation in composite laminates...
+  Inventor: Max U. Kismarton (US)
+  Company : The Boeing Company (US)
+
+  Patent  : 10000050 (2018)
+  Title   : Method for the manufacture of a fibre composite component, a rein...
+  Inventor: Dirk Elbracht (DE)
+  Company : AIRBUS OPERATIONS LIMITED (GB)
+
+  Patent  : 10000115 (2018)
+  Title   : Method of operating a transmission...
+  Inventor: Peter Ziemer (DE)
+  Company : ZF Friedrichshafen AG (DE)
+
+Database size: 913.9 MB
+Database ready -> /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline/patents.db
+
+COMPLETED: STEP 3 — Load into SQLite database
+
+------------------------------------------------------------
+STEP 4 — Run 7 SQL analysis queries
+Time: 23:10:58
+------------------------------------------------------------
+Working directory: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline
+
+=======================================================
+Q1: TOP 20 INVENTORS — GREEN TRANSPORT PATENTS
+=======================================================
+                     name country                  city  patent_count
+     Gopichandra Surnilla      US         Beverly Hills           355
+           Atsushi Tabata      JP               Okazaki           315
+   Ross Dykstra Pursifull      US              Dearborn           300
+          Shinji Ichikawa      JP                Toyota           218
+      Joseph Norman Ulrey      US              Dearborn           211
+          Thomas G. Leone      US             Ypsilanti           209
+         Gabriel L. Suciu      US           Glastonbury           207
+    Jeffrey Allen Doering      US                Canton           207
+          Anthony H. Heap      US             Ann Arbor           198
+     Frederick M. Schwarz      US           Glastonbury           190
+          Ming Lang Kuang      US                Canton           190
+             Aed M. Dudar      US                Canton           186
+        Chris Paul Glugla      US Chesterfield Township           173
+          Tooru Matsubara      JP               Miyoshi           166
+             Norio Takami      JP              Yokohama           163
+Michiel J. Van Nieuwstadt      US             Ann Arbor           161
+           Ted J. Freeman      US              Danville           153
+   Ajith Kuttannair Kumar      US                  Erie           150
+        Michael W. Degner      US                  Novi           148
+           Ching-Pang Lee      US            Cincinnati           146
+
+  Saved: output/top_inventors.csv
+
+=======================================================
+Q2: TOP 20 COMPANIES — GREEN TRANSPORT PATENTS
+=======================================================
+                               name country  patent_count
+    TOYOTA JIDOSHA KABUSHIKI KAISHA      JP          9958
+      FORD GLOBAL TECHNOLOGIES, LLC      US          6748
+           General Electric Company      US          4740
+              HONDA MOTOR CO., LTD.      JP          4030
+GM GLOBAL TECHNOLOGY OPERATIONS LLC      US          3750
+              Hyundai Motor Company      KR          3729
+             Nissan Motor Co., Ltd.      JP          2673
+                  Robert Bosch GmbH      DE          2636
+    UNITED TECHNOLOGIES CORPORATION      US          2609
+                 The Boeing Company      US          2453
+                  DENSO CORPORATION      JP          1977
+             Kia Motors Corporation      KR          1912
+    MITSUBISHI ELECTRIC CORPORATION      JP          1510
+                   Caterpillar Inc.      US          1342
+                      HITACHI, LTD.      JP          1229
+  RAYTHEON TECHNOLOGIES CORPORATION      US          1191
+                    ROLLS-ROYCE plc      GB          1149
+            Mazda Motor Corporation      JP          1083
+          AIRBUS OPERATIONS LIMITED      GB          1057
+                 General Motors LLC      US           922
+
+  Saved: output/top_companies.csv
+
+=======================================================
+Q3a: COUNTRIES BY INVENTOR LOCATION (where research happens)
+=======================================================
+country  patent_count  pct_share
+     US         61031      40.83
+     JP         37715      25.23
+     DE         15940      10.66
+     KR          6641       4.44
+     FR          6051       4.05
+     GB          4322       2.89
+     CN          3008       2.01
+     CA          2890       1.93
+     SE          1699       1.14
+     IT          1510       1.01
+     IN          1022       0.68
+     TW           921       0.62
+     AT           914       0.61
+     CH           864       0.58
+     NL           517       0.35
+     AU           495       0.33
+     BE           471       0.32
+     ES           400       0.27
+     IL           337       0.23
+     FI           265       0.18
+     DK           258       0.17
+     NZ           219       0.15
+     CZ           202       0.14
+     RU           168       0.11
+     PL           167       0.11
+     NO           152       0.10
+     BR           144       0.10
+     MX           123       0.08
+     SA           114       0.08
+     PE           101       0.07
+
+  Saved: output/country_trends_by_inventor.csv
+
+=======================================================
+Q3b: COUNTRIES BY COMPANY LOCATION (where IP is owned)
+=======================================================
+country  patent_count  pct_share
+     US         54859      41.32
+     JP         37455      28.21
+     DE         12883       9.70
+     KR          6679       5.03
+     FR          5315       4.00
+     GB          3864       2.91
+     CN          2525       1.90
+     CA          1908       1.44
+     SE          1543       1.16
+     IT           976       0.74
+     CH           757       0.57
+     TW           520       0.39
+     AT           518       0.39
+     NL           346       0.26
+     AU           283       0.21
+     BE           278       0.21
+     FI           249       0.19
+     IL           230       0.17
+     IE           196       0.15
+     DK           150       0.11
+     SA           120       0.09
+     NO           114       0.09
+     NZ            99       0.07
+     ES            87       0.07
+     SG            81       0.06
+     GI            79       0.06
+     LU            73       0.05
+     IN            72       0.05
+     BR            64       0.05
+     BB            57       0.04
+
+  Saved: output/country_trends_by_company.csv
+
+=======================================================
+Q4: GREEN TRANSPORT PATENT TRENDS OVER TIME (1976-2025)
+=======================================================
+year  patent_count  cumulative_total
+1976           726               726
+1977           573              1299
+1978           683              1982
+1979           455              2437
+1980           593              3030
+1981           657              3687
+1982           631              4318
+1983           694              5012
+1984           881              5893
+1985           815              6708
+1986           642              7350
+1987           801              8151
+1988           714              8865
+1989           807              9672
+1990           795             10467
+1991           896             11363
+1992          1012             12375
+1993          1010             13385
+1994           977             14362
+1995          1036             15398
+1996          1138             16536
+1997          1089             17625
+1998          1437             19062
+1999          1477             20539
+2000          1601             22140
+2001          1894             24034
+2002          1946             25980
+2003          2044             28024
+2004          1997             30021
+2005          2007             32028
+2006          2296             34324
+2007          2083             36407
+2008          2026             38433
+2009          2090             40523
+2010          2897             43420
+2011          3269             46689
+2012          4259             50948
+2013          4833             55781
+2014          5749             61530
+2015          6802             68332
+2016          6937             75269
+2017          7864             83133
+2018          7872             91005
+2019          9085            100090
+2020          8639            108729
+2021          7887            116616
+2022          7011            123627
+2023          6910            130537
+2024          5852            136389
+2025          4735            141124
+
+  → Saved: output/yearly_trends.csv
+
+=======================================================
+Q5: FULL JOIN — PATENTS + INVENTORS + COMPANIES (sample 20)
+=======================================================
+patent_id                                                                                                                                                                                  title year filing_date      inventor_name inventor_country         inventor_city                                       company_name company_country
+ 12186717                                                                                                                                                Mixer, mixer assembly and mixing method 2025  2025-01-07   Thibault Fouquet               CN              Shanghai                    Cummins Emission Solutions Inc.              US
+ 12186717                                                                                                                                                Mixer, mixer assembly and mixing method 2025  2025-01-07           Jian Gao               CN              Shanghai                    Cummins Emission Solutions Inc.              US
+ 12186717                                                                                                                                                Mixer, mixer assembly and mixing method 2025  2025-01-07      Ludovic Geant               CN              Shanghai                    Cummins Emission Solutions Inc.              US
+ 12186970                                                                                                                         Multi-arm forming device for space on-orbit composite braiding 2025  2025-01-07         Yiwei Chen               CN               Nanjing NANJING UNIVERSITY OF AERONAUTICS AND ASTRONAUTICS              CN
+ 12186970                                                                                                                         Multi-arm forming device for space on-orbit composite braiding 2025  2025-01-07        Yaxing Song               CN               Nanjing NANJING UNIVERSITY OF AERONAUTICS AND ASTRONAUTICS              CN
+ 12186970                                                                                                                         Multi-arm forming device for space on-orbit composite braiding 2025  2025-01-07         Congze Fan               CN               Nanjing NANJING UNIVERSITY OF AERONAUTICS AND ASTRONAUTICS              CN
+ 12186970                                                                                                                         Multi-arm forming device for space on-orbit composite braiding 2025  2025-01-07        Wenzhe Song               CN               Nanjing NANJING UNIVERSITY OF AERONAUTICS AND ASTRONAUTICS              CN
+ 12186970                                                                                                                         Multi-arm forming device for space on-orbit composite braiding 2025  2025-01-07       Zhongde Shan               CN               Nanjing NANJING UNIVERSITY OF AERONAUTICS AND ASTRONAUTICS              CN
+ 12186970                                                                                                                         Multi-arm forming device for space on-orbit composite braiding 2025  2025-01-07      Jinghua Zheng               CN               Nanjing NANJING UNIVERSITY OF AERONAUTICS AND ASTRONAUTICS              CN
+ 12186998                                                                                                                                                                          Stringer plug 2025  2025-01-07  George M. Osborne               US               Wichita                                                NaN             NaN
+ 12187075                                                                                                                                                                                   Tire 2025  2025-01-07    Hiroshi Yamaoka               JP                 Kasai                   SUMITOMO RUBBER INDUSTRIES, LTD.              JP
+ 12187075                                                                                                                                                                                   Tire 2025  2025-01-07    Yuichi ISHIGAKI               JP                  Kobe                   SUMITOMO RUBBER INDUSTRIES, LTD.              JP
+ 12187094                                                                                                                                                              Thermal management system 2025  2025-01-07 Nobuharu Kakehashi               JP                Kariya                                  DENSO CORPORATION              JP
+ 12187094                                                                                                                                                              Thermal management system 2025  2025-01-07    Tomohiro Hayase               JP                Kariya                                  DENSO CORPORATION              JP
+ 12187110                                                                                                                                    Body structure for an electrically operated vehicle 2025  2025-01-07        Ingo Lueken               DE            Tappenbeck                      VOLKSWAGEN AKTIENGESELLSCHAFT              DE
+ 12187110                                                                                                                                    Body structure for an electrically operated vehicle 2025  2025-01-07   Thomas Schilling               DE Hillandale Drive East                      VOLKSWAGEN AKTIENGESELLSCHAFT              DE
+ 12187110                                                                                                                                    Body structure for an electrically operated vehicle 2025  2025-01-07      Werner Krauth               DE             Wolfsburg                      VOLKSWAGEN AKTIENGESELLSCHAFT              DE
+ 12187110                                                                                                                                    Body structure for an electrically operated vehicle 2025  2025-01-07    Nicole Wallmann               DE             Knesebeck                      VOLKSWAGEN AKTIENGESELLSCHAFT              DE
+ 12187113 Ventilation device module for a motor vehicle cooling module, ventilation device comprising such a module, and cooling module for a motor vehicle comprising such a ventilation device 2025  2025-01-07  Sébastien Garnier               FR           Le Mousseau                          Valeo Systemes Thermiques              FR
+ 12187113 Ventilation device module for a motor vehicle cooling module, ventilation device comprising such a module, and cooling module for a motor vehicle comprising such a ventilation device 2025  2025-01-07       Kamel Azzouz               FR           Le Mousseau                          Valeo Systemes Thermiques              FR
+
+  Saved: output/full_join_sample.csv
+
+=======================================================
+Q6: CTE — COMPANIES WITH ABOVE-AVERAGE PATENT COUNTS
+=======================================================
+                                       name country  patent_count  avg_patents  multiple_of_avg
+            TOYOTA JIDOSHA KABUSHIKI KAISHA      JP          9958        11.58           859.94
+              FORD GLOBAL TECHNOLOGIES, LLC      US          6748        11.58           582.74
+                   General Electric Company      US          4740        11.58           409.33
+                      HONDA MOTOR CO., LTD.      JP          4030        11.58           348.02
+        GM GLOBAL TECHNOLOGY OPERATIONS LLC      US          3750        11.58           323.84
+                      Hyundai Motor Company      KR          3729        11.58           322.03
+                     Nissan Motor Co., Ltd.      JP          2673        11.58           230.83
+                          Robert Bosch GmbH      DE          2636        11.58           227.64
+            UNITED TECHNOLOGIES CORPORATION      US          2609        11.58           225.31
+                         The Boeing Company      US          2453        11.58           211.83
+                          DENSO CORPORATION      JP          1977        11.58           170.73
+                     Kia Motors Corporation      KR          1912        11.58           165.11
+            MITSUBISHI ELECTRIC CORPORATION      JP          1510        11.58           130.40
+                           Caterpillar Inc.      US          1342        11.58           115.89
+                              HITACHI, LTD.      JP          1229        11.58           106.13
+          RAYTHEON TECHNOLOGIES CORPORATION      US          1191        11.58           102.85
+                            ROLLS-ROYCE plc      GB          1149        11.58            99.22
+                    Mazda Motor Corporation      JP          1083        11.58            93.52
+                  AIRBUS OPERATIONS LIMITED      GB          1057        11.58            91.28
+                         General Motors LLC      US           922        11.58            79.62
+                               Cummins Inc.      US           843        11.58            72.80
+Bayerische Motoren Werke Aktiengesellschaft      DE           817        11.58            70.55
+                    SAFRAN AIRCRAFT ENGINES      FR           815        11.58            70.38
+               HONEYWELL INTERNATIONAL INC.      US           765        11.58            66.06
+                              LG Chem, Ltd.      KR           741        11.58            63.99
+               Pratt & Whitney Canada Corp.      CA           733        11.58            63.30
+                  SAMSUNG DISPLAY CO., LTD.      KR           719        11.58            62.09
+Dr. Ing. h.c. F. Porsche Aktiengesellschaft     NaN           714        11.58            61.66
+          YAMAHA HATSUDOKI KABUSHIKI KAISHA      JP           708        11.58            61.14
+                                    Audi AG      DE           664        11.58            57.34
+
+  Saved: output/cte_above_average_companies.csv
+
+=======================================================
+Q7: WINDOW FUNCTIONS — INVENTOR RANKINGS
+=======================================================
+                       name country                  city  patent_count  overall_rank  rank_in_country  pct_of_total
+       Gopichandra Surnilla      US         Beverly Hills           355             1                1        0.0916
+             Atsushi Tabata      JP               Okazaki           315             2                1        0.0813
+     Ross Dykstra Pursifull      US              Dearborn           300             3                2        0.0774
+            Shinji Ichikawa      JP                Toyota           218             4                2        0.0563
+        Joseph Norman Ulrey      US              Dearborn           211             5                3        0.0545
+            Thomas G. Leone      US             Ypsilanti           209             6                4        0.0540
+           Gabriel L. Suciu      US           Glastonbury           207             7                5        0.0534
+      Jeffrey Allen Doering      US                Canton           207             7                5        0.0534
+            Anthony H. Heap      US             Ann Arbor           198             9                6        0.0511
+       Frederick M. Schwarz      US           Glastonbury           190            10                7        0.0491
+            Ming Lang Kuang      US                Canton           190            10                7        0.0491
+               Aed M. Dudar      US                Canton           186            12                8        0.0480
+          Chris Paul Glugla      US Chesterfield Township           173            13                9        0.0447
+            Tooru Matsubara      JP               Miyoshi           166            14                3        0.0429
+               Norio Takami      JP              Yokohama           163            15                4        0.0421
+  Michiel J. Van Nieuwstadt      US             Ann Arbor           161            16               10        0.0416
+             Ted J. Freeman      US              Danville           153            17               11        0.0395
+     Ajith Kuttannair Kumar      US                  Erie           150            18               12        0.0387
+          Michael W. Degner      US                  Novi           148            19               13        0.0382
+             Ching-Pang Lee      US            Cincinnati           146            20               14        0.0377
+     Douglas Raymond Martin      US                Canton           143            21               15        0.0369
+             Alan G. Holmes      US             Clarkston           139            22               16        0.0359
+                 Rolf Brück      DE              Bensberg           136            23                1        0.0351
+       Mark Steven Yamazaki      US                Canton           134            24               17        0.0346
+       Nicholas Joseph Kray      US                 Mason           134            24               17        0.0346
+            Donald J. Lewis      US                Howell           131            26               18        0.0338
+        John Eric Rollinger      US      Sterling Heights           130            27               19        0.0336
+                Rajit Johri      US             Ann Arbor           130            27               19        0.0336
+       Alex O'Connor Gibson      US             Ann Arbor           129            29               20        0.0333
+       Brandon Wayne Miller      US                Monroe           129            29               20        0.0333
+        Dominic J. Mongillo      US Town of West Hartford           129            29               20        0.0333
+        Johannes Kaltenbach      DE       Friedrichshafen           126            32                2        0.0325
+            Tatsuya Imamura      JP               Okazaki           125            33                5        0.0323
+            John D. Russell      US      Farmington Hills           124            34               21        0.0320
+           Robert Dean King      US           Schenectady           124            34               21        0.0320
+Tracy A. Propheter-Hinckley      US            Manchester           123            36               22        0.0318
+        Fazal Urrahman Syed      US                Canton           122            37               23        0.0315
+        Chandra S. Namuduri      US                  Troy           120            38               24        0.0310
+            Eugene V. Gonze      US              Pinckney           119            39               25        0.0307
+            Mamoru Yoshioka      JP                Susono           113            40                6        0.0292
+       Kenneth James Miller      US                Canton           113            40               26        0.0292
+             Jean Thomassin      CA          Sainte-Julie           110            42                1        0.0284
+         Adam Nathan Banker      US              Plymouth           110            42               27        0.0284
+        Ronald Scott Bunker      US           Sharonville           110            42               27        0.0284
+                   Yue Wang      US                  Troy           109            45               28        0.0281
+       Daniel Joseph Styles      US                Canton           106            46               29        0.0274
+            Aaron D. Sippel      US            Zionsville           103            47               30        0.0266
+                 Hong Zhang      DE            Tegernheim           102            48                3        0.0263
+        Brandon W. Spangler      US                Vernon           102            48               31        0.0263
+            Leslie Bromberg      US                Sharon           102            48               31        0.0263
+
+  Saved: output/inventor_rankings.csv
+
+=======================================================
+ALL QUERIES COMPLETE
+=======================================================
+CSV files saved to output/:
+  console_report.txt (5.8 KB)
+  country_momentum.csv (1.1 KB)
+  country_trends_by_company.csv (0.4 KB)
+  country_trends_by_inventor.csv (0.4 KB)
+  cte_above_average_companies.csv (1.4 KB)
+  full_join_sample.csv (3.0 KB)
+  inventor_rankings.csv (2.4 KB)
+  logs (0.1 KB)
+  most_cited_patents.csv (2.9 KB)
+  patent_forecast_2030.csv (0.3 KB)
+  pipeline_summary.csv (0.4 KB)
+  rank_comparison.csv (0.8 KB)
+  report.json (6.8 KB)
+  subcategory_emergence.csv (0.3 KB)
+  top_companies.csv (0.7 KB)
+  top_companies_by_avg_citations.csv (1.8 KB)
+  top_companies_by_citations.csv (1.8 KB)
+  top_inventors.csv (0.7 KB)
+  yearly_trends.csv (0.8 KB)
+
+COMPLETED: STEP 4 — Run 7 SQL analysis queries
+
+------------------------------------------------------------
+STEP 5 — Advanced diagnostic and predictive analysis
+Time: 23:11:01
+------------------------------------------------------------
+============================================================
+  ADVANCED ANALYSIS — GREEN TRANSPORT PATENTS
+  Started: 2026-05-08 23:11:02
+============================================================
+
+============================================================
+STEP 1: Loading citation data...
+============================================================
+  Loading citations (this may take 2-3 minutes)...
+  → 152,631,929 citation records loaded
+
+  Loading patents and relations from database...
+  → 141,124 green transport patents
+  → 419,757 relations
+
+============================================================
+DIAGNOSTIC 1: Citation-weighted company rankings
+============================================================
+
+  Methodology:
+  Forward citation count = how many times a patent is cited by
+  subsequent patents. High citation count = foundational patent.
+  This mirrors Google PageRank — importance determined by who
+  points to you, not just how much you produce.
+
+  Citation score per company = SUM of forward citations for all
+  their green transport patents.
+
+  Average citation score = citation score / patent count.
+  This measures quality per patent, penalising companies that
+  file many trivial uncited patents.
+
+  Citations pointing to green transport patents: 1,347,497
+
+  TOP 20 COMPANIES BY TOTAL FORWARD CITATIONS:
+  (Most influential green transport patent portfolios)
+  Rank  Company                                  Ctry   Patents  Citations     Avg
+  ---- --------------------------------------- ---- -------- ---------- -------
+  1     General Electric Company                 US       4,740     76,515    16.1
+  2     TOYOTA JIDOSHA KABUSHIKI KAISHA          JP       9,958     65,321     6.6
+  3     FORD GLOBAL TECHNOLOGIES, LLC            US       6,748     47,500     7.0
+  4     UNITED TECHNOLOGIES CORPORATION          US       2,609     39,409    15.1
+  5     HONDA MOTOR CO., LTD.                    JP       4,030     34,252     8.5
+  6     Nissan Motor Co., Ltd.                   JP       2,673     29,861    11.2
+  7     The Boeing Company                       US       2,453     29,629    12.1
+  8     General Motors LLC                       US         922     24,965    27.1
+  9     Ethicon Endo-Surgery, Inc.               US          13     24,861  1912.4
+  10    GM GLOBAL TECHNOLOGY OPERATIONS LLC      US       3,750     20,891     5.6
+  11    HITACHI, LTD.                            JP       1,229     19,497    15.9
+  12    Robert Bosch GmbH                        DE       2,636     17,659     6.7
+  13    Caterpillar Inc.                         US       1,342     12,747     9.5
+  14    DENSO CORPORATION                        JP       1,977     12,154     6.2
+  15    Ford Motor Company                       US         435     11,135    25.6
+  16    MASSACHUSETTS INSTITUTE OF TECHNOLOGY    US         153      9,139    59.7
+  17    HONEYWELL INTERNATIONAL INC.             US         765      8,799    11.5
+  18    MITSUBISHI ELECTRIC CORPORATION          JP       1,510      8,765     5.8
+  19    ROLLS-ROYCE plc                          GB       1,149      8,570     7.5
+  20    Mazda Motor Corporation                  JP       1,083      8,112     7.5
+
+  TOP 20 COMPANIES BY AVERAGE CITATIONS PER PATENT:
+  (Patent quality — min 10 patents to qualify)
+  Rank  Company                                  Ctry   Patents  Avg Cit
+  ---- --------------------------------------- ---- -------- --------
+  1     Ethicon Endo-Surgery, Inc.               US          13   1912.4
+  2     Oshkosh Truck Corporation                US          26    199.8
+  3     Donnelly Corporation                     US          16    198.3
+  4     Clean Energy Systems, Inc.               US          10    192.1
+  5     PAICE LLC                                US          15     90.7
+  6     Corning Glass Works                      US          13     82.2
+  7     MAKITA CORPORATION                       JP          14     78.0
+  8     ECHOGEN POWER SYSTEMS, LLC               US          10     75.6
+  9     Segway, Inc.                             US          14     74.9
+  10    KABUSHIKIKAISHA EQUOS RESEARCH           JP          39     72.1
+  11    Mobil Oil Corporation                    US          10     64.5
+  12    Hughes Aircraft Company                  US          26     63.6
+  13    Better Place GmbH                        CH          10     62.8
+  14    The United States of America as represe  US          10     61.1
+  15    MASSACHUSETTS INSTITUTE OF TECHNOLOGY    US         153     59.7
+  16    DEKA PRODUCTS LIMITED PARTNERSHIP        US          78     59.5
+  17    GridPoint, Inc.                          US          10     58.5
+  18    Minnesota Mining and Manufacturing Comp  US          23     57.6
+  19    Coulomb Technologies                     US          11     56.1
+  20    Turbodyne Systems, Inc.                  US          18     54.2
+
+  RANK COMPARISON: Count-based vs Citation-based
+  (Shows how rankings change when quality is factored in)
+                                Company  Count Rank Patents  Total Citations  Avg Citations
+1       TOYOTA JIDOSHA KABUSHIKI KAISHA                9958            65321           6.56
+2         FORD GLOBAL TECHNOLOGIES, LLC                6748            47500           7.04
+3              General Electric Company                4740            76515          16.14
+4                 HONDA MOTOR CO., LTD.                4030            34252           8.50
+5   GM GLOBAL TECHNOLOGY OPERATIONS LLC                3750            20891           5.57
+6                 Hyundai Motor Company                3729             7132           1.91
+7                Nissan Motor Co., Ltd.                2673            29861          11.17
+8                     Robert Bosch GmbH                2636            17659           6.70
+9       UNITED TECHNOLOGIES CORPORATION                2609            39409          15.11
+10                   The Boeing Company                2453            29629          12.08
+11                    DENSO CORPORATION                1977            12154           6.15
+12               Kia Motors Corporation                1912             2320           1.21
+13      MITSUBISHI ELECTRIC CORPORATION                1510             8765           5.80
+14                     Caterpillar Inc.                1342            12747           9.50
+15                        HITACHI, LTD.                1229            19497          15.86
+16    RAYTHEON TECHNOLOGIES CORPORATION                1191             1904           1.60
+17                      ROLLS-ROYCE plc                1149             8570           7.46
+18              Mazda Motor Corporation                1083             8112           7.49
+19            AIRBUS OPERATIONS LIMITED                1057             3133           2.96
+20                   General Motors LLC                 922            24965          27.08
+
+  → Saved: output/top_companies_by_citations.csv
+  → Saved: output/top_companies_by_avg_citations.csv
+  → Saved: output/rank_comparison.csv
+
+============================================================
+DIAGNOSTIC 2: Most cited green transport patents
+============================================================
+  These are the most foundational/influential patents —
+  the ones that subsequent inventors built upon most.
+
+  Rank  Citations Year   Company                        Title
+  ---- --------- ----- ----------------------------- ----------------------------------------
+  1         2,398 2009   Ethicon Endo-Surgery, Inc.     Surgical stapling systems and staple cartridg
+  2         2,383 2008   Ethicon Endo-Surgery, Inc.     Surgical stapling instruments having a releas
+  3         2,199 2013   Ethicon Endo-Surgery, Inc.     Staple cartridge cavity configurations
+  4         2,172 2012   Ethicon Endo-Surgery, Inc.     Surgical stapling systems and staple cartridg
+  5         2,133 2010   Ethicon Endo-Surgery, Inc.     Washer for use with a surgical stapling instr
+  6         2,112 2010   Ethicon Endo-Surgery, Inc.     Re-loadable surgical stapling instrument
+  7         2,094 2010   Ethicon Endo-Surgery, Inc.     Surgical stapling instrument having a releasa
+  8         1,804 2014   Ethicon Endo-Surgery, Inc.     Staple cartridge cavity configuration with co
+  9         1,741 2014   Ethicon Endo-Surgery, Inc.     Surgical stapling instrument having a releasa
+  10        1,593 2002   DEERE & COMPANY                Variable current limit control for vehicle el
+  11        1,536 2014   Ethicon Endo-Surgery, Inc.     Surgical stapling systems and staple cartridg
+  12        1,507 1993   Magneti Marelli S.p.A.         Electrical system for a motor vehicle, includ
+  13        1,491 2015   Ethicon Endo-Surgery, Inc.     End effectors for surgical stapling instrumen
+  14        1,465 2015   Ethicon Endo-Surgery, Inc.     Surgical staple having a slidable crown
+  15        1,431 2007   TOYOTA JIDOSHA KABUSHIKI KAIS  Voltage converter control apparatus, and meth
+  16        1,424 2004   Unassigned                     Methods and apparatus for increasing power of
+  17        1,402 1978   KABUSHIKI KAISHA TOYOTA CHUO   Internal combustion engine with auxiliary com
+  18        1,356 1977   General Motors LLC             Internal combustion engine
+  19        1,333 2016   Ethicon Endo-Surgery, Inc.     Lateral securement members for surgical stapl
+  20        1,215 2011   Tesla Motors, Inc.             Tunable frangible battery pack system
+
+  → Saved: output/most_cited_patents.csv
+
+============================================================
+DIAGNOSTIC 3: Technology emergence — subcategory growth
+============================================================
+
+  Methodology:
+  Compare patent counts in the last 5 years (2020-2024) vs
+  the previous 5 years (2015-2019) for each Y02T subcategory.
+  A subcategory growing faster than the overall trend indicates
+  an emerging technology area.
+
+  This is diagnostic because it tells us WHY the overall trend
+  is growing — which specific transport technologies are
+  driving the increase.
+
+  Loading CPC subcategory data...
+
+  Subcategory                          2015-19  2020-24   Growth Trend
+  ---------------------------------- -------- -------- -------- ---------------
+  Aviation Propulsion                    7,654    8,913    16.4%   📈 Growing
+  Charging Infrastructure                6,925    7,902    14.1%   📈 Growing
+  Aviation Efficiency                      254      287    13.0%   📈 Growing
+  Road Vehicles (EVs/Hybrids)           29,474   25,989   -11.8%   📉 Declining
+  Maritime                                 412      304   -26.2%   📉 Declining
+
+  → Saved: output/subcategory_emergence.csv
+
+============================================================
+PREDICTIVE 1: Patent trend forecasting (2025-2030)
+============================================================
+
+  Methodology: Linear regression on yearly patent counts.
+  Uses the last 10 years (2014-2024) as the training window
+  since this period reflects the modern EV era and is more
+  predictive than the full historical series.
+
+  Limitation: Linear regression is a simple baseline model.
+  Patent activity is influenced by policy changes, economic
+  cycles, and technological disruption — none of which are
+  captured here. Treat as indicative, not definitive.
+
+  For a more robust model, ARIMA or exponential smoothing
+  would account for autocorrelation in time series data.
+
+  Linear model: patents = 18.0 × year + -29051
+  R² (fit quality): 0.003 (moderate fit)
+
+  Year      Predicted Patents Type
+  ------- ------------------ ----------
+  2014                  7,237  actual
+  2017                  7,291  actual
+  2020                  7,346  actual
+  2024                  7,418  actual
+  2025                  7,436  forecast  ←
+  2026                  7,454  forecast
+  2027                  7,472  forecast
+  2028                  7,490  forecast
+  2029                  7,508  forecast
+  2030                  7,526  forecast
+
+  → Saved: output/patent_forecast_2030.csv
+
+============================================================
+PREDICTIVE 2: Country momentum index
+============================================================
+
+  Methodology:
+  Compare each country's share of global green transport patents
+  in 2019-2024 vs 2014-2018. A rising share indicates the country
+  is gaining momentum relative to the global field.
+
+  This is both diagnostic (explains current patterns) and
+  predictive (identifies countries likely to dominate future
+  green transport innovation).
+
+  Country  Share 14-18 Share 19-24   Change Momentum
+  ------- ----------- ----------- -------- ------------
+  CN             1.26%       3.70%   +2.44%   ⬆ Gaining
+  CA             1.52%       2.51%   +0.99%   ⬆ Gaining
+  US            38.74%      39.61%   +0.87%   ⬆ Gaining
+  IN             0.66%       1.20%   +0.54%   ⬆ Gaining
+  GB             2.82%       3.35%   +0.53%   ⬆ Gaining
+  CH             0.43%       0.68%   +0.25%   ➡ Stable
+  SE             1.13%       1.31%   +0.18%   ➡ Stable
+  CZ             0.11%       0.26%   +0.15%   ➡ Stable
+  PL             0.09%       0.20%   +0.11%   ➡ Stable
+  AT             0.55%       0.66%   +0.11%   ➡ Stable
+  KR             6.47%       6.56%   +0.09%   ➡ Stable
+  IL             0.21%       0.28%   +0.07%   ➡ Stable
+  IT             1.04%       1.10%   +0.06%   ➡ Stable
+  FI             0.17%       0.21%   +0.04%   ➡ Stable
+  ES             0.30%       0.31%   +0.01%   ➡ Stable
+  TW             0.67%       0.67%   +0.00%   ➡ Stable
+  FR             4.32%       4.31%   -0.01%   ➡ Stable
+  AU             0.26%       0.25%   -0.01%   ➡ Stable
+  NL             0.37%       0.36%   -0.01%   ➡ Stable
+  NZ             0.20%       0.19%   -0.01%   ➡ Stable
+
+  → Saved: output/country_momentum.csv
+
+============================================================
+DIAGNOSTIC CONTEXT: Policy & industry correlations
+============================================================
+
+  The following external events correlate with observed patent
+  trends in the data and provide diagnostic explanation for WHY
+  green transport patenting accelerated at specific points:
+
+  2005-2008: Toyota Prius success drives hybrid patent surge
+             Kyoto Protocol compliance pressure on automakers
+
+  2010-2012: US CAFE standards tightened (35.5 mpg by 2016)
+             EU CO2 fleet average regulations introduced
+             China NEV (New Energy Vehicle) policy launched
+
+  2015:      Paris Agreement signed — global emissions targets
+             VW Dieselgate scandal accelerates EV investment
+             Battery costs fall below $350/kWh threshold
+
+  2017-2019: China becomes world's largest EV market
+             EU 2030 CO2 target (-37.5% vs 2021)
+             Norway announces 2025 ICE vehicle ban
+
+  2020-2022: EU Green Deal — €1 trillion clean economy package
+             US Inflation Reduction Act EV tax credits
+             Global automakers announce ICE phase-out dates
+
+  2023-2025: EU 2035 ICE ban confirmed
+             China dominates EV supply chain patents
+             Solid-state battery patents surge
+
+  Sources for dashboard:
+    IEA Global EV Outlook:
+      https://www.iea.org/reports/global-ev-outlook-2024
+    ICAO Aviation Environment:
+      https://www.icao.int/environmental-protection
+    IMO GHG Strategy 2023:
+      https://www.imo.org/en/MediaCentre/PressBriefings/
+      pages/Revised-GHG-reduction-strategy.aspx
+
+============================================================
+ADVANCED ANALYSIS COMPLETE
+============================================================
+  output/top_companies_by_citations.csv      (if citation data available)
+  output/top_companies_by_avg_citations.csv  (if citation data available)
+  output/rank_comparison.csv                 (if citation data available)
+  output/most_cited_patents.csv              (if citation data available)
+  output/subcategory_emergence.csv
+  output/patent_forecast_2030.csv
+  output/country_momentum.csv
+
+COMPLETED: STEP 5 — Advanced diagnostic and predictive analysis
+
+------------------------------------------------------------
+STEP 6 — Generate reports
+Time: 23:23:47
+------------------------------------------------------------
+
+============================================================
+GENERATING JSON REPORT
+============================================================
+SAVED: output/report.json
+
+============================================================
+GENERATING SUMMARY CSV
+============================================================
+SAVED: output/pipeline_summary.csv
+
+============================================================
+REPORT GENERATION COMPLETE
+============================================================
+  output/report.json
+  output/pipeline_summary.csv
+  output/console_report.txt (generated by run_pipeline.py)
+
+COMPLETED: STEP 6 — Generate reports
+
+============================================================
+PIPELINE ALL STEPS COMPLETED SUCCESSFULLY
+Finished: 2026-05-08 23:23:50
+============================================================
+
+Generated files:
+  data/clean/clean_patents.csv     108.5 MB
+  data/clean/clean_inventors.csv   6.4 MB
+  data/clean/clean_companies.csv   985.5 KB
+  data/clean/clean_relations.csv   25.3 MB
+  patents.db                       913.9 MB
+  output/top_inventors.csv         722.0 B
+  output/top_companies.csv         675.0 B
+  output/yearly_trends.csv         810.0 B
+  output/patent_forecast_2030.csv  329.0 B
+  output/country_momentum.csv      1.1 KB
+  output/report.json               6.8 KB
+  output/console_report.txt        5.8 KB
+============================================================

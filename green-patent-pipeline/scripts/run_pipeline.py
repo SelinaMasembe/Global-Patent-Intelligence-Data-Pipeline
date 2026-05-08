@@ -52,32 +52,34 @@ STEPS = [
      "scripts/03_load_db.py"),
     ("STEP 4 — Run 7 SQL analysis queries",
      "scripts/04_analyze.py"),
-    ("STEP 5 — Generate reports",
+    ("STEP 5 — Advanced diagnostic and predictive analysis",
+     "scripts/04b_advanced_analysis.py"),
+    ("STEP 6 — Generate reports",
      "scripts/05_report.py"),
 ]
 
+# Start logging
 header = f"""
 ============================================================
-  GREEN TRANSPORT PATENT INTELLIGENCE PIPELINE
-  Focus  : CPC Y02T — Climate change mitigation in transport
-  Started: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
-  Log    : {log_path}
+GREEN TRANSPORT PATENT INTELLIGENCE — FULL PIPELINE
+Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 ============================================================
 """
-lines = [header]
 print(header)
+all_output = [header]
 
-failed      = False
+failed = False
 failed_step = None
 
 for label, script in STEPS:
     divider = f"""
 ------------------------------------------------------------
-  {label}
-  Time: {datetime.now().strftime("%H:%M:%S")}
-------------------------------------------------------------"""
+{label}
+Time: {datetime.now().strftime('%H:%M:%S')}
+------------------------------------------------------------
+"""
     print(divider)
-    lines.append(divider)
+    all_output.append(divider)
 
     process = subprocess.Popen(
         [sys.executable, "-u", script],
@@ -95,57 +97,60 @@ for label, script in STEPS:
             step_output.append(line)
 
     process.wait()
-    lines.append("".join(step_output))
+    all_output.extend(step_output)
 
     if process.returncode != 0:
         msg = (
-            f"\n  ✗ FAILED: {label} "
-            f"(exit code {process.returncode})\n"
-            f"  Pipeline stopped.\n"
+            f"\nFAILED: {label} (exit code {process.returncode})\n"
+            f"Pipeline stopped.\n"
         )
         print(msg)
-        lines.append(msg)
-        failed      = True
+        all_output.append(msg)
+        failed = True
         failed_step = label
         break
     else:
-        msg = f"\n  ✓ COMPLETED: {label}\n"
+        msg = f"\nCOMPLETED: {label}\n"
         print(msg)
-        lines.append(msg)
+        all_output.append(msg)
 
 # ── Footer ────────────────────────────────────────────────────────
-status = (f"FAILED at: {failed_step}"
-          if failed else
-          "ALL STEPS COMPLETED SUCCESSFULLY")
+status = f"FAILED: {failed_step}" if failed else "ALL STEPS COMPLETED SUCCESSFULLY"
 
 footer = f"""
 ============================================================
-  PIPELINE {status}
-  Finished: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+PIPELINE {status}
+Finished: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 ============================================================
 
 Generated files:
-  data/clean/clean_patents.csv     {file_size("data/clean/clean_patents.csv")}
-  data/clean/clean_inventors.csv   {file_size("data/clean/clean_inventors.csv")}
-  data/clean/clean_companies.csv   {file_size("data/clean/clean_companies.csv")}
-  data/clean/clean_relations.csv   {file_size("data/clean/clean_relations.csv")}
-  patents.db                       {file_size("patents.db")}
-  output/top_inventors.csv         {file_size("output/top_inventors.csv")}
-  output/top_companies.csv         {file_size("output/top_companies.csv")}
-  output/yearly_trends.csv         {file_size("output/yearly_trends.csv")}
-  output/report.json               {file_size("output/report.json")}
-  output/console_report.txt        {file_size("output/console_report.txt")}
-  {log_path}
+  data/clean/clean_patents.csv     {file_size('data/clean/clean_patents.csv')}
+  data/clean/clean_inventors.csv   {file_size('data/clean/clean_inventors.csv')}
+  data/clean/clean_companies.csv   {file_size('data/clean/clean_companies.csv')}
+  data/clean/clean_relations.csv   {file_size('data/clean/clean_relations.csv')}
+  patents.db                       {file_size('patents.db')}
+  output/top_inventors.csv         {file_size('output/top_inventors.csv')}
+  output/top_companies.csv         {file_size('output/top_companies.csv')}
+  output/yearly_trends.csv         {file_size('output/yearly_trends.csv')}
+  output/patent_forecast_2030.csv  {file_size('output/patent_forecast_2030.csv')}
+  output/country_momentum.csv      {file_size('output/country_momentum.csv')}
+  output/report.json               {file_size('output/report.json')}
+  output/console_report.txt        {file_size('output/console_report.txt')}
 ============================================================
 """
 print(footer)
-lines.append(footer)
+all_output.append(footer)
 
-full_log = "".join(lines)
+# Save complete log
+log_file = "output/console_report.txt"
+with open(log_file, "w", encoding="utf-8") as f:
+    f.write("".join(all_output))
+
 with open(log_path, "w", encoding="utf-8") as f:
-    f.write(full_log)
+    f.write("".join(all_output))
 with open(latest_path, "w", encoding="utf-8") as f:
-    f.write(full_log)
+    f.write("".join(all_output))
 
 print(f"Log saved to : {log_path}")
 print(f"Latest log   : {latest_path}")
+print(f"\nComplete log saved to: {log_file}")
