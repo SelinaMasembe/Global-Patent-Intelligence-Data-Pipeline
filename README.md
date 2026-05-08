@@ -6,6 +6,18 @@ A full end-to-end data pipeline analysing **141,124 active green transportation 
 
 ---
 
+## 🚀 Live Dashboard & Repository
+
+**View the interactive dashboard:**
+<https://global-patent-intelligence-data-pipeline-ltbq8soh7loyiybbptmfq.streamlit.app/>
+
+**View the source code:**
+<https://github.com/SelinaMasembe/Global-Patent-Intelligence-Data-Pipeline>
+
+Share these links with your lecturer or colleagues to explore all 8 pages of analysis.
+
+---
+
 ## Pipeline Architecture
 
 ```
