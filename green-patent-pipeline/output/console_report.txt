@@ -14,22 +14,22 @@ Working directory: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing a
 CHECKING RAW DATA FILES
 =======================================================
 
-  ✓ g_patent.tsv (1071 MB)
+   g_patent.tsv (1071 MB)
     Columns OK: ['patent_id', 'patent_title', 'patent_date', 'patent_type', 'withdrawn']
 
-  ✓ g_patent_abstract.tsv (5948 MB)
+   g_patent_abstract.tsv (5948 MB)
     Columns OK: ['patent_id', 'patent_abstract']
 
-  ✓ g_inventor_disambiguated.tsv (2190 MB)
+   g_inventor_disambiguated.tsv (2190 MB)
     Columns OK: ['patent_id', 'inventor_id', 'disambig_inventor_name_first', 'disambig_inventor_name_last', 'location_id']
 
-  ✓ g_assignee_disambiguated.tsv (1055 MB)
+   g_assignee_disambiguated.tsv (1055 MB)
     Columns OK: ['patent_id', 'assignee_id', 'disambig_assignee_organization', 'disambig_assignee_individual_name_first', 'disambig_assignee_individual_name_last', 'assignee_type', 'location_id']
 
-  ✓ g_location_disambiguated.tsv (9 MB)
+   g_location_disambiguated.tsv (9 MB)
     Columns OK: ['location_id', 'disambig_country', 'disambig_city', 'disambig_state']
 
-  ✓ g_cpc_current.tsv (3225 MB)
+   g_cpc_current.tsv (3225 MB)
     Columns OK: ['patent_id', 'cpc_group']
 
 =======================================================

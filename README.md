@@ -2,19 +2,17 @@
 
 A full end-to-end data pipeline analysing **141,124 active green transportation patents** (CPC Y02T) granted by the USPTO from 1976 to 2025.
 
-**Focus:** Climate change mitigation in transportation — covering electric vehicles, hybrid engines, fuel cells, aviation propulsion, maritime shipping, and charging infrastructure.
+**Focus:** Climate change mitigation in transportation covering electric vehicles, hybrid engines, fuel cells, aviation propulsion, maritime shipping, and charging infrastructure.
 
 ---
 
-## 🚀 Live Dashboard & Repository
+## Live Dashboard and Repository
 
 **View the interactive dashboard:**
 <https://global-patent-intelligence-data-pipeline-ltbq8soh7loyiybbptmfq.streamlit.app/>
 
 **View the source code:**
 <https://github.com/SelinaMasembe/Global-Patent-Intelligence-Data-Pipeline>
-
-Share these links with your lecturer or colleagues to explore all 8 pages of analysis.
 
 ---
 
@@ -283,56 +281,26 @@ Pipeline step `02b_data_quality.py` performs 17 validation checks:
 
 **Passed:**
 
-- ✅ Zero duplicate patent IDs
-- ✅ Zero orphaned foreign keys
-- ✅ All titles present and non-empty
-- ✅ All years valid (1976-2025 range)
+- Zero duplicate patent IDs
+- Zero orphaned foreign keys
+- All titles present and non-empty
+- All years valid (1976-2025 range)
 
 **Corrected:**
 
-- ✅ 5 geocoding errors fixed:
+- 5 geocoding errors fixed:
   - Shigeo Yamamoto: UG/Amuru → JP (138 records)
   - Hiroshi Shimizu: CM/Somalomo → JP (83 records)
   - 3 Japanese companies: UG/Amuru → JP (Aisan, AISAN KOGYO, TOKAI KOGYO)
 
 **Known Limitations:**
 
-- ⚠️ 0.7% inventors missing country (932 records) — kept as-is
-- ⚠️ 1.7% companies missing country (213 records) — kept as-is
-- ⚠️ 5 patents missing abstracts (optional field)
+- 0.7% inventors missing country (932 records) — kept as-is
+- 1.7% companies missing country (213 records) — kept as-is
+- 5 patents missing abstracts (optional field)
 
 ---
 
-## Deployment
-
-### Option: Streamlit Cloud (Recommended)
-
-```bash
-# 1. Install Git LFS
-brew install git-lfs
-
-# 2. Track database file
-git lfs install
-git lfs track "*.db"
-
-# 3. Push to GitHub
-git add .
-git commit -m "Initial commit with patents.db"
-git push origin main
-
-# 4. Deploy on Streamlit Cloud
-# Visit: https://streamlit.io/cloud
-# Click: New app
-# Select: YOUR_USERNAME/green-patent-pipeline
-# Main file: dashboard/app.py
-# Deploy!
-```
-
-**Result:** Dashboard live at `https://YOUR_USERNAME-green-patent-pipeline.streamlit.app`
-
-**Cost:** Free tier available (includes 913.9 MB database)
-
----
 
 ## Requirements
 
