@@ -1,12 +1,12 @@
 
 ============================================================
 GREEN TRANSPORT PATENT INTELLIGENCE — FULL PIPELINE
-Started: 2026-05-08 23:07:55
+Started: 2026-05-09 13:08:28
 ============================================================
 
 ------------------------------------------------------------
 STEP 0 — Verify raw data file columns
-Time: 23:07:55
+Time: 13:08:28
 ------------------------------------------------------------
 Working directory: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline
 
@@ -14,22 +14,22 @@ Working directory: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing a
 CHECKING RAW DATA FILES
 =======================================================
 
-   g_patent.tsv (1071 MB)
+  ✓ g_patent.tsv (1071 MB)
     Columns OK: ['patent_id', 'patent_title', 'patent_date', 'patent_type', 'withdrawn']
 
-   g_patent_abstract.tsv (5948 MB)
+  ✓ g_patent_abstract.tsv (5948 MB)
     Columns OK: ['patent_id', 'patent_abstract']
 
-   g_inventor_disambiguated.tsv (2190 MB)
+  ✓ g_inventor_disambiguated.tsv (2190 MB)
     Columns OK: ['patent_id', 'inventor_id', 'disambig_inventor_name_first', 'disambig_inventor_name_last', 'location_id']
 
-   g_assignee_disambiguated.tsv (1055 MB)
+  ✓ g_assignee_disambiguated.tsv (1055 MB)
     Columns OK: ['patent_id', 'assignee_id', 'disambig_assignee_organization', 'disambig_assignee_individual_name_first', 'disambig_assignee_individual_name_last', 'assignee_type', 'location_id']
 
-   g_location_disambiguated.tsv (9 MB)
+  ✓ g_location_disambiguated.tsv (9 MB)
     Columns OK: ['location_id', 'disambig_country', 'disambig_city', 'disambig_state']
 
-   g_cpc_current.tsv (3225 MB)
+  ✓ g_cpc_current.tsv (3225 MB)
     Columns OK: ['patent_id', 'cpc_group']
 
 =======================================================
@@ -40,7 +40,7 @@ COMPLETED: STEP 0 — Verify raw data file columns
 
 ------------------------------------------------------------
 STEP 1 — Clean and filter data
-Time: 23:07:55
+Time: 13:08:29
 ------------------------------------------------------------
 Working directory: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline
 Clean folder: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline/data/clean
@@ -154,7 +154,7 @@ COMPLETED: STEP 1 — Clean and filter data
 
 ------------------------------------------------------------
 STEP 2 — Data quality checks and fixes
-Time: 23:10:52
+Time: 13:13:52
 ------------------------------------------------------------
 Working directory: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline
 
@@ -251,7 +251,7 @@ COMPLETED: STEP 2 — Data quality checks and fixes
 
 ------------------------------------------------------------
 STEP 3 — Load into SQLite database
-Time: 23:10:55
+Time: 13:13:55
 ------------------------------------------------------------
 Working directory: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline
 
@@ -331,7 +331,7 @@ COMPLETED: STEP 3 — Load into SQLite database
 
 ------------------------------------------------------------
 STEP 4 — Run 7 SQL analysis queries
-Time: 23:10:58
+Time: 13:13:57
 ------------------------------------------------------------
 Working directory: /Users/selinamasembe/Documents/YEAR 3/SEM 2/Cloud Computing and Big Data/ASSIGNMENTS/BIG DATA PATENT PROJECT/Big data Project/Global-Patent-Intelligence-Data-Pipeline/Global-Patent-Intelligence-Data-Pipeline/green-patent-pipeline
 
@@ -645,14 +645,14 @@ Tracy A. Propheter-Hinckley      US            Manchester           123         
 ALL QUERIES COMPLETE
 =======================================================
 CSV files saved to output/:
-  console_report.txt (5.8 KB)
+  console_report.txt (55.5 KB)
   country_momentum.csv (1.1 KB)
   country_trends_by_company.csv (0.4 KB)
   country_trends_by_inventor.csv (0.4 KB)
   cte_above_average_companies.csv (1.4 KB)
   full_join_sample.csv (3.0 KB)
   inventor_rankings.csv (2.4 KB)
-  logs (0.1 KB)
+  logs (0.2 KB)
   most_cited_patents.csv (2.9 KB)
   patent_forecast_2030.csv (0.3 KB)
   pipeline_summary.csv (0.4 KB)
@@ -669,11 +669,11 @@ COMPLETED: STEP 4 — Run 7 SQL analysis queries
 
 ------------------------------------------------------------
 STEP 5 — Advanced diagnostic and predictive analysis
-Time: 23:11:01
+Time: 13:14:01
 ------------------------------------------------------------
 ============================================================
   ADVANCED ANALYSIS — GREEN TRANSPORT PATENTS
-  Started: 2026-05-08 23:11:02
+  Started: 2026-05-09 13:14:01
 ============================================================
 
 ============================================================
@@ -968,7 +968,7 @@ COMPLETED: STEP 5 — Advanced diagnostic and predictive analysis
 
 ------------------------------------------------------------
 STEP 6 — Generate reports
-Time: 23:23:47
+Time: 13:30:35
 ------------------------------------------------------------
 
 ============================================================
@@ -992,7 +992,7 @@ COMPLETED: STEP 6 — Generate reports
 
 ============================================================
 PIPELINE ALL STEPS COMPLETED SUCCESSFULLY
-Finished: 2026-05-08 23:23:50
+Finished: 2026-05-09 13:30:39
 ============================================================
 
 Generated files:
@@ -1007,5 +1007,5 @@ Generated files:
   output/patent_forecast_2030.csv  329.0 B
   output/country_momentum.csv      1.1 KB
   output/report.json               6.8 KB
-  output/console_report.txt        5.8 KB
+  output/console_report.txt        55.5 KB
 ============================================================

@@ -299,8 +299,13 @@ Pipeline step `02b_data_quality.py` performs 17 validation checks:
 - 1.7% companies missing country (213 records) — kept as-is
 - 5 patents missing abstracts (optional field)
 
----
+## Limitations
 
+- Raw TSV files and generated clean CSVs are intentionally NOT committed to this GitHub repository due to their very large size (many GB). Place raw data in `data/raw/` before running the pipeline; generated clean CSVs appear in `data/clean/` after running the pipeline.
+- The SQLite database `patents.db` is tracked via Git LFS to enable deployment; large intermediate files (raw and clean CSVs) remain local or on external storage.
+- If you need copies of the raw/clean files, share them via a cloud storage link (S3/Google Drive/Dropbox) rather than committing into Git.
+
+---
 
 ## Requirements
 
